@@ -1,0 +1,147 @@
+# MD80 HV
+
+```{figure} ./images/md80hv.jpg
+:alt: candle
+:class: bg-primary mb-1
+:align: center
+:class: no-scaled-link
+```
+
+## General parameters
+
+MD80HV is high voltage variant of MD80, designed to work well with 12S lithium batteries. It has all
+functionalities and features of regular MD80, for more information, please refer to [MD80](#md80)
+
+**General parameters table for MD80HV:**
+
+```{list-table}
+:header-rows: 1
+
+* - Parameter
+  - Value
+* - Nominal Input Voltage Range
+  - 48 VDC
+* - Maximum Input Voltage Range
+  - 12 - 60 VDC
+* - Max Input Current (connector)
+  - 10.0 A (RMS)
+* - Max Continuous Phase Current w/o cooling
+  - 12 A
+* - Max Peak Phase Current (t = 2 s)
+  - 40 A
+* - Built-in software-controlled termination resistor
+  - optional
+* - FDCAN Baudrate (adjustable)
+  - 1/2/5/8 Mbps
+* - Position PID Controller Execution Frequency
+  - 1 kHz
+* - Velocity PID Controller Execution Frequency
+  - 5 kHz
+* - Impedance Controller Execution Frequency
+  - 40 kHz
+* - Torque Control Execution Frequency
+  - 40 kHz
+* - Torque Bandwidth (adjustable)
+  - 50 Hz - 2.5 kHz
+* - External encoder support
+  - yes, SPI and RS422 (optional)
+* - External 5V power supply max current
+  - 150 mA
+```
+
+```{figure} ./images/MD80/mount_cross_section.png
+:alt: candle
+:class: bg-primary mb-1
+:align: center
+:class: no-scaled-link
+```
+
+## Connectors pinout
+
+The connectors used in the system on the CAN FD side are MOLEX Micro-Fit series 3.0. Both connectors
+are connected in parallel for easy daisy-chaining. The connector pinout with respected color coding
+is presented below:
+
+```{figure} ./images/motor_connectors.jpg
+:alt: candle
+:class: bg-primary mb-1
+:align: center
+:class: no-scaled-link
+```
+
+```{warning}
+<font color='red'> Always make sure CAN bus lines are not shorted to the positive power rail. Applying supply voltage to these pins will cause permanent damage to the controller! </font> 
+```
+
+### Thermistor connection
+
+All MD80 versions have the capability to measure the MOSFET and motor temperature. This is to ensure
+the safe operation of the driver and motor. The motor shutdown temperature is configurable up to
+140°C max with a hysteresis of 20°C. The driver shutdown temperature is fixed at 100°C with a
+hysteresis of 20°C.
+
+In the case of the MD80 HW V2.0 the MOSFET thermistor is built-in directly under the power stage and
+only the motor thermistor connector is available:
+
+```{figure} ./images/HW20_thermistor.png
+:alt: candle
+:scale: 50%
+:class: bg-primary mb-1
+:align: center
+:class: no-scaled-link
+```
+
+````{dropdown} The connectors in the case of the HW1.1 and HV1.3
+```{figure} ./images/HW11_thermistor.jpg
+:alt: candle
+:class: bg-primary mb-1
+:align: center
+:class: no-scaled-link
+```
+
+```{note}
+On older (<HW2.2) designs NTCMHP100K is recommended.
+```
+
+````
+
+```{note}
+For the HW2.2+ and HW3.0+ version of the board we recommend using NTCMHP10K thermistors. Using other thermistors may result in imprecise temperature readout.
+```
+
+### Aux connectors
+
+MD80 HW2.1+ and HW3.0+ feature two accessory connectors.
+
+**Aux 1 connector** is dedicated to connect MABs
+[ME_am](https://www.mabrobotics.pl/product-page/me-am) and other SPI based encoders. For external
+encoder connection via the SPI *530480650 Molex PicoBlade* connectors is provided.
+
+```{warning}
+<font color='red'>The auxiliary connector pins are 3.3V tolerant. Applying 5V to these pins will cause permanent damage to the controller! </font> 
+```
+
+```{figure} ./images/MD80/aux1_connector_pinout_HW2.1.jpg
+:alt: candle
+:class: bg-primary mb-1
+:align: center
+:class: no-scaled-link
+```
+
+**Aux 2 connector** has two user-configurable GPIOs, and RS422 interface for connecting to RLS Axim2
+encoder. AUX GPIO A pin can be used as an automatic brake control output signal. This signal when
+amplified, can be used to control
+[MAB SLIM](https://www.mabrobotics.pl/product-page/mab-slim-electromagnetic-brake) electromagnetic
+brakes. Enabling of this mode is done via `userGpioConfiguration` register. When enabled driver will
+automatically disengage the brake when enabled. For external encoder connection via the RS422 and
+the GPIO pins utilization *530480810 Molex PicoBlade* connectors could be used.
+
+```{figure} ./images/MD80/aux2_connector_pinout.jpg
+:alt: candle
+:class: bg-primary mb-1
+:align: center
+:class: no-scaled-link
+```
+
+We are able to integrate custom functions such as GPIOs for external sensors and indicators. For
+more information please contact us: [contact@mabrobotics.pl](https://www.mabrobotics.pl/contact)
