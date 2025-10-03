@@ -187,7 +187,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="MD/intro.html">MD - Motor Controllers</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="MD/MD80.html">MD80</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MD/MD20.html">MD20</a></li>
-<li class="toctree-l2"><a class="reference internal" href="MD/MD80HV.html">MD80HV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MD/MD80HV.html">MD80 60V</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MD/encoders.html">Encoders</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MD/brakes.html">Brakes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MD/measurements.html">Measurements</a></li>
@@ -512,7 +512,10 @@ gimbals, and many more.</p>
 <h2>MD series motor controller<a class="headerlink" href="#md-series-motor-controller" title="Link to this heading">#</a></h2>
 <p>MD series motor controller is a highly integrated brushless motor controller. It can be interfaced
 with a great variety of motors to turn them into advanced servo actuators. MD series motor
-controller can work with both direct drive (no gearbox) and geared motors.</p>
+controller can work with both direct drive (no gearbox) and geared motors. All MD series motor
+controllers, feature built-in absolute encoder, FOC based control algorithm and variaty of motion
+control modes. MDs can also be equipped with additional encoders and brakes, for many application
+scenarios.</p>
 <img alt="MDs" class="no-scaled-link align-center" src="_images/mds.jpg" style="width: 700px;" />
 </section>
 <section id="pds-power-distribution-system">
@@ -524,10 +527,12 @@ accessed via CANFD bus and CANdle.</p>
 </section>
 <section id="candle-and-candle-hat">
 <h2>CANdle and CANdle HAT<a class="headerlink" href="#candle-and-candle-hat" title="Link to this heading">#</a></h2>
-<p>CANdle (CAN + dongle) is a translator device between the host controller and the MD series motor
-controller drivers. It is possible to interface CANdle with a regular PC over USB bus or CANdle HAT
-with SBCs (such as Raspberry PI) over USB, SPI or UART bus. The latest CANdle and CANdle HAT devices
-are fitted with a switch for enabling and disabling the built-in termination resistor.</p>
+<p>CANdle (CAN + dongle) is a translator device between the host controller (PC or SBC) and the MD
+series motor controller drivers. It is possible to interface CANdle with a regular PC over USB bus
+or CANdle HAT with SBCs (such as Raspberry PI) over USB, SPI or UART bus. The latest CANdle and
+CANdle HAT devices are fitted with a switch for enabling and disabling the built-in termination
+resistor. CANdle provides easy to use interface via C++, Python or ROS2 APIs, check
+<a class="reference internal" href="CANdle-SDK/intro.html#candle-sdk"><span class="std std-ref">CANdle-SDK</span></a> for more info.</p>
 <img alt="CANdles" class="no-scaled-link align-center" src="_images/CANdle_joined.webp" style="width: 700px;" />
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -554,13 +559,6 @@ expiriencing any problems, we recommend you use a ful terminator setup.</p>
 <p>Here is an example setup of CANdle Ecosystem, with PDS, two MD based actuators, CANdle, and NVidia
 Jetson as host computer, all connected in a single communication string.</p>
 <img alt="ecosystem" class="no-scaled-link align-center" src="_images/ecosystem1.jpg" />
-<p>And here we have motor control scenario with CANdle and 3 MD80 based actuators.</p>
-<figure class="align-center" id="id2">
-<img alt="candlehat_system" class="no-scaled-link" src="_images/hardware_setup_candleHAT1.jpg" />
-<figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">CANdle HAT MD-actuator string (SPI bus using Raspberry Pi)</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
 <p>To learn more about MAB Ecosystem, check out one of the categories below:</p>
 </section>
 </section>

@@ -184,7 +184,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../MD/intro.html">MD - Motor Controllers</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../MD/MD80.html">MD80</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MD/MD20.html">MD20</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MD/MD80HV.html">MD80HV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MD/MD80HV.html">MD80 60V</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MD/encoders.html">Encoders</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MD/brakes.html">Brakes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MD/measurements.html">Measurements</a></li>
@@ -480,7 +480,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motor-terminals-not-soldered-properly">Motor terminals not soldered properly</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#failed-calibration">Failed calibration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lack-of-fdcan-termination">Lack of FDCAN termination</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#md-is-not-detected-on-mdtool-discover-command">MD is not detected on “mdtool discover” command</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#md-is-not-detected-on-candletool-discover-command">MD is not detected on “candletool discover” command</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-fdcan-speeds-between-actuators">Different FDCAN speeds between actuators</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#can-md-fd-protocol-and-canopen-work-on-single-bus">Can MD FD Protocol and CANOpen work on single bus?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#too-low-torque-bandwidth-setting">Too-low torque bandwidth setting</a></li>
@@ -548,8 +548,8 @@ is present and working (the resistance between CANH and CANL lines should be 60 
 resistors in parallel, on ends of the bus). The termination resistor is embedded in the CANdle
 device, and can be turned on/off with a physical switch.</p>
 </section>
-<section id="md-is-not-detected-on-mdtool-discover-command">
-<h2>MD is not detected on “mdtool discover” command<a class="headerlink" href="#md-is-not-detected-on-mdtool-discover-command" title="Link to this heading">#</a></h2>
+<section id="md-is-not-detected-on-candletool-discover-command">
+<h2>MD is not detected on “candletool discover” command<a class="headerlink" href="#md-is-not-detected-on-candletool-discover-command" title="Link to this heading">#</a></h2>
 <p>There might be several reasons why MD controllers are not showing up during the discovery. Please
 ensure you’ve check the things listed below:</p>
 <ol class="arabic simple">
@@ -661,7 +661,7 @@ likely be a better option.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motor-terminals-not-soldered-properly">Motor terminals not soldered properly</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#failed-calibration">Failed calibration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lack-of-fdcan-termination">Lack of FDCAN termination</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#md-is-not-detected-on-mdtool-discover-command">MD is not detected on “mdtool discover” command</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#md-is-not-detected-on-candletool-discover-command">MD is not detected on “candletool discover” command</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-fdcan-speeds-between-actuators">Different FDCAN speeds between actuators</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#can-md-fd-protocol-and-canopen-work-on-single-bus">Can MD FD Protocol and CANOpen work on single bus?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#too-low-torque-bandwidth-setting">Too-low torque bandwidth setting</a></li>

@@ -186,7 +186,7 @@
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">MD - Motor Controllers</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="MD80.html">MD80</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MD20.html">MD20</a></li>
-<li class="toctree-l2"><a class="reference internal" href="MD80HV.html">MD80HV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MD80HV.html">MD80 60V</a></li>
 <li class="toctree-l2"><a class="reference internal" href="encoders.html">Encoders</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brakes.html">Brakes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="measurements.html">Measurements</a></li>
@@ -480,6 +480,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#md80"><span class="xref myst">MD80</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#md20"><span class="xref myst">MD20</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#md80-60v"><span class="xref myst">MD80 60V</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessories">Accessories</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#auxiliary-encoders"><span class="xref myst">Auxiliary Encoders</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brake-systems"><span class="xref myst">Brake Systems</span></a></li>
@@ -519,18 +520,23 @@ robots and robotic platforms.</p>
 <li><p>small size,</p></li>
 <li><p>low weight.</p></li>
 </ul>
-<p>There are two variants of MD motor controllers:</p>
+<p>Current variants of MD motor controllers:</p>
 <section id="md80">
 <h2><a class="reference internal" href="MD80.html"><span class="doc std std-doc">MD80</span></a><a class="headerlink" href="#md80" title="Link to this heading">#</a></h2>
-<p><img alt="MD80" src="../_images/md80_hmd.jpg" /></p>
+<p>Suitable for most BLDC motors in 100-500W power range. <img alt="MD80" src="../_images/md80_hmd.jpg" /></p>
 </section>
 <section id="md20">
 <h2><a class="reference internal" href="MD20.html"><span class="doc std std-doc">MD20</span></a><a class="headerlink" href="#md20" title="Link to this heading">#</a></h2>
-<p><img alt="MD20" src="../_images/md20_coin.jpg" /></p>
+<p>Best for gimbal BLDC motor, and smaller motors up to 120W. <img alt="MD20" src="../_images/md20_coin.jpg" /></p>
+</section>
+<section id="md80-60v">
+<h2><a class="reference internal" href="MD80HV.html"><span class="doc std std-doc">MD80 60V</span></a><a class="headerlink" href="#md80-60v" title="Link to this heading">#</a></h2>
+<p>For high voltage applications.<br />
+<img alt="MD80" src="../_images/md80hv.jpg" /></p>
 </section>
 <section id="accessories">
 <h2>Accessories<a class="headerlink" href="#accessories" title="Link to this heading">#</a></h2>
-<p>MD functionality can be further inncreased by connecting auxiliary encoders and brakes</p>
+<p>MD functionality can be further increased by connecting auxiliary encoders and brakes</p>
 <section id="auxiliary-encoders">
 <h3><a class="reference internal" href="encoders.html"><span class="doc std std-doc">Auxiliary Encoders</span></a><a class="headerlink" href="#auxiliary-encoders" title="Link to this heading">#</a></h3>
 <p><img alt="Aux Encoders" src="../_images/encoders.jpg" /></p>
@@ -542,13 +548,12 @@ robots and robotic platforms.</p>
 </section>
 <section id="safety-information">
 <h2>Safety information<a class="headerlink" href="#safety-information" title="Link to this heading">#</a></h2>
-<p>Even though the MD series motor controller is a small brushless controller it can push a substantial
-amount of current through the motor windings. This means there are many hazards related to the high
-torques that the actuator is able to produce as well as elevated temperatures that may occur close
-to the MD series motor controller controller or the motor. Always make sure the actuator is mounted
-firmly and does not pose a threat to its surroundings. Make sure the power supply current limits are
-set to low values (~1A) as an additional safety measure when you are unsure about the tested
-behavior of the system.</p>
+<p>Even though the MD series motor controller are small, they can push a substantial amount of current
+through the motor windings. This means there are many hazards related to the high torques that the
+actuator is able to produce as well as elevated temperatures that may occur close to the MDs or the
+motor. Always make sure the actuator is mounted firmly and does not pose a threat to its
+surroundings. Make sure the power supply current limits are set to low values (~1A) as an additional
+safety measure when you are unsure about the tested behavior of the system.</p>
 </section>
 <section id="principle-of-operation">
 <h2>Principle of operation<a class="headerlink" href="#principle-of-operation" title="Link to this heading">#</a></h2>
@@ -663,6 +668,7 @@ less accurate due to excessive friction in the gearbox.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#md80"><span class="xref myst">MD80</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#md20"><span class="xref myst">MD20</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#md80-60v"><span class="xref myst">MD80 60V</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessories">Accessories</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#auxiliary-encoders"><span class="xref myst">Auxiliary Encoders</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brake-systems"><span class="xref myst">Brake Systems</span></a></li>
