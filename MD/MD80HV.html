@@ -582,7 +582,7 @@ hysteresis of 20°C.</p>
 <p>In the case of the MD80 60V the MOSFET thermistor is built-in directly under the power stage and
 only the motor thermistor connector is available:</p>
 <figure class="align-center">
-<img alt="candle" class="no-scaled-link" src="../_images/HW20_thermistor.png" style="width: 542.0px; height: 302.0px;" />
+<img alt="candle" class="no-scaled-link" src="../_images/HW20_thermistor.png" style="width: 699.0px; height: 418.0px;" />
 </figure>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">We</span> <span class="n">recommend</span> <span class="n">using</span> <span class="p">[</span><span class="n">NTCMHP10K</span> <span class="n">thermistors</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">mabrobotics</span><span class="o">.</span><span class="n">pl</span><span class="o">/</span><span class="n">product</span><span class="o">-</span><span class="n">page</span><span class="o">/</span><span class="n">thermistor</span><span class="p">)</span> <span class="o">.</span> <span class="n">Using</span> <span class="n">other</span> <span class="n">thermistors</span> <span class="n">may</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">imprecise</span> <span class="n">temperature</span> <span class="n">readout</span><span class="o">.</span>
 </pre></div>
@@ -611,6 +611,12 @@ the GPIO pins utilization <em>530480810 Molex PicoBlade</em> connectors could be
 <figure class="align-center">
 <img alt="candle" class="no-scaled-link" src="../_images/aux2_connector_pinout.jpg" />
 </figure>
+<p>We are able to integrate custom functions such as GPIOs for external sensors and indicators. For
+more information please contact us: <a class="reference external" href="https://www.mabrobotics.pl/contact">contact&#64;mabrobotics.pl</a></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>By default RS422 transciver is not soldered on the MD80 boards. If you plan to use RLS Axim2 encoder with MD80, let us know when ordering the board. This modification will be done free of charge.</p>
+</div>
 </section>
 </section>
 <section id="thermal-characteristics">
@@ -627,11 +633,16 @@ the GPIO pins utilization <em>530480810 Molex PicoBlade</em> connectors could be
 <figure class="align-center">
 <img alt="MD testing station" class="no-scaled-link" src="../_images/MD_test.png" />
 </figure>
-<p>In this way driver is set up for the worst case when there is no shaft and all the power is converted to heat.</p>
-<p>In each scenario, tests were conducted for a range of phase currents, varying from 2 A to 78 A in 4 A increments. For each current level, the setup was operated until the temperature stabilized, with a target duration of 120 seconds.</p>
-<p>All tests were performed in constant environment conditions, in still air at 25°C ambient temperature.</p>
-<p>The temperature was measured using an onboard thermistor placed on the bottom layer of the PCB, directly below the MOSFETs.</p>
-<p>Tests were performed using voltage levels of 14V, 24V, 36V, 48V and  60V.</p>
+<p>In this way driver is set up for the worst case when there is no shaft and all the power is
+converted to heat.</p>
+<p>In each scenario, tests were conducted for a range of phase currents, varying from 2 A to 78 A in 4
+A increments. For each current level, the setup was operated until the temperature stabilized, with
+a target duration of 120 seconds.</p>
+<p>All tests were performed in constant environment conditions, in still air at 25°C ambient
+temperature.</p>
+<p>The temperature was measured using an onboard thermistor placed on the bottom layer of the PCB,
+directly below the MOSFETs.</p>
+<p>Tests were performed using voltage levels of 14V, 24V, 36V, 48V and 60V.</p>
 <p><strong>Test scenario I - no cooling</strong></p>
 <figure class="align-center">
 <img alt="MD80HV no cooling 14V" class="no-scaled-link" src="../_images/14V3.png" />
@@ -680,8 +691,6 @@ the GPIO pins utilization <em>530480810 Molex PicoBlade</em> connectors could be
 <figure class="align-center">
 <img alt="MD80HV active air cooling 60V" class="no-scaled-link" src="../_images/60V2.png" />
 </figure>
-<p>We are able to integrate custom functions such as GPIOs for external sensors and indicators. For
-more information please contact us: <a class="reference external" href="https://www.mabrobotics.pl/contact">contact&#64;mabrobotics.pl</a></p>
 </section>
 </section>
 
