@@ -482,6 +482,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aux-connectors">Aux connectors</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thermal-characteristics">Thermal characteristics</a></li>
 </ul>
             </nav>
         </div>
@@ -676,9 +677,68 @@ the GPIO pins utilization <em>530480810 Molex PicoBlade</em> connectors could be
 <figure class="align-center">
 <img alt="candle" class="no-scaled-link" src="../_images/aux2_connector_pinout.jpg" />
 </figure>
+</section>
+</section>
+<section id="thermal-characteristics">
+<h2>Thermal characteristics<a class="headerlink" href="#thermal-characteristics" title="Link to this heading">#</a></h2>
+<p><strong>Test Conditions and Setup</strong></p>
+<p>To cover all potential cases, three cooling scenarios have been performed:</p>
+<ul class="simple">
+<li><p>No additional cooling</p></li>
+<li><p>Passive cooling</p></li>
+<li><p>Active air cooling</p></li>
+</ul>
+<p>MD80 driver was tested using coupled inductors (each 22uH) - simulating a motor.</p>
+<p>The circuit of the test station is visible below.</p>
+<figure class="align-center">
+<img alt="MD testing station" class="no-scaled-link" src="../_images/MD_test.png" />
+</figure>
+<p>In this way driver is set up for the worst case when there is no shaft and all the power is converted to heat.</p>
+<p>In each scenario, tests were conducted for a range of phase currents, varying from 2 A to 78 A in 4 A increments. For each current level, the setup was operated until the temperature stabilized, with a target duration of 120 seconds.</p>
+<p>All tests were performed in constant environment conditions, in still air at 25°C ambient temperature.</p>
+<p>The temperature was measured using an onboard thermistor placed on the bottom layer of the PCB, directly below the MOSFETs.</p>
+<p>Tests were performed using voltage levels of 14V, 24V, 36V and 42V.</p>
+<p><strong>Test scenario I - no cooling</strong></p>
+<figure class="align-center">
+<img alt="MD80 no cooling 14V" class="no-scaled-link" src="../_images/14V.png" />
+</figure>
+<figure class="align-center">
+<img alt="MD80 no cooling 24V" class="no-scaled-link" src="../_images/24V.png" />
+</figure>
+<figure class="align-center">
+<img alt="MD80 no cooling 36V" class="no-scaled-link" src="../_images/36V.png" />
+</figure>
+<figure class="align-center">
+<img alt="MD80 no cooling 42V" class="no-scaled-link" src="../_images/42V.png" />
+</figure>
+<p><strong>Test scenario II - passive cooling</strong></p>
+<figure class="align-center">
+<img alt="MD80 passive cooling 14V" class="no-scaled-link" src="../_images/14V1.png" />
+</figure>
+<figure class="align-center">
+<img alt="MD80 passive cooling 24V" class="no-scaled-link" src="../_images/24V1.png" />
+</figure>
+<figure class="align-center">
+<img alt="MD80 passive cooling 36V" class="no-scaled-link" src="../_images/36V1.png" />
+</figure>
+<figure class="align-center">
+<img alt="MD80 passive cooling 42V" class="no-scaled-link" src="../_images/42V1.png" />
+</figure>
+<p><strong>Test scenario III - active air cooling</strong></p>
+<figure class="align-center">
+<img alt="MD80 passive cooling 14V" class="no-scaled-link" src="../_images/14V2.png" />
+</figure>
+<figure class="align-center">
+<img alt="MD80 passive cooling 24V" class="no-scaled-link" src="../_images/24V2.png" />
+</figure>
+<figure class="align-center">
+<img alt="MD80 passive cooling 36V" class="no-scaled-link" src="../_images/36V2.png" />
+</figure>
+<figure class="align-center">
+<img alt="MD80 passive cooling 42V" class="no-scaled-link" src="../_images/42V2.png" />
+</figure>
 <p>We are able to integrate custom functions such as GPIOs for external sensors and indicators. For
 more information please contact us: <a class="reference external" href="https://www.mabrobotics.pl/contact">contact&#64;mabrobotics.pl</a></p>
-</section>
 </section>
 </section>
 
@@ -752,6 +812,7 @@ more information please contact us: <a class="reference external" href="https://
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aux-connectors">Aux connectors</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thermal-characteristics">Thermal characteristics</a></li>
 </ul>
   </nav></div>
 
