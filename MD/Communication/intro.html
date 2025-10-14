@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Migration to and from CANopen &#8212; MAB Ecosystem</title>
+    <title>Communication Overview &#8212; MAB Ecosystem</title>
   
   
   
@@ -465,7 +465,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Migration to and from CANopen</h1>
+    <h1>Communication Overview</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -475,15 +475,18 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation">Preparation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-to-canopen">Migration to CANopen</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-step">First step</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#second-step">Second step</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#third-step">Third step</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-to-and-from-canopen">Migration to and from CANopen</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation">Preparation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-to-canopen">Migration to CANopen</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#first-step">First step</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#second-step">Second step</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#third-step">Third step</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-from-canopen">Migration from CANopen</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-from-canopen-to-legacy-firmware">Migration from CANopen to Legacy firmware</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-from-canopen">Migration from CANopen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-from-canopen-to-legacy-firmware">Migration from CANopen to Legacy firmware</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -495,10 +498,26 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="migration-to-and-from-canopen">
-<h1>Migration to and from CANopen<a class="headerlink" href="#migration-to-and-from-canopen" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="communication-overview">
+<h1>Communication Overview<a class="headerlink" href="#communication-overview" title="Link to this heading">#</a></h1>
+<p>MD communication protocols are based on CAN and CAN-FD bus. One of the communication modes can be used:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="fdcan.html#md-protocol"><span class="std std-ref">MABs MD Protocol</span></a>,</p></li>
+<li><p><a class="reference internal" href="canopen.html#md-canopen"><span class="std std-ref">CANOpen</span></a>.</p></li>
+</ul>
+<p>MD Protocol, offers dead simple, yet quite efficient interface based around register access, similarly to
+modbus. It follows strict Master-Slave communication model where registers can be accessed one by one,
+or by batch read and writes. This is the protocol used by <a class="reference internal" href="../../CANdle/intro.html#candle-and-hat"><span class="std std-ref">CANdle and CANdleHAT</span></a>.
+MD Protocol can be used both with CAN-FD (up to 8M datarate and 64 bytes per frame) and CAN2.0.</p>
+<p>The other option is <a class="reference external" href="https://www.can-cia.org/can-knowledge/canopen">CANOpen</a>, which is and older, but
+widely used industrial communication protocol. While offering high configurability it is limited by
+CAN2.0 bandwidth restrictiong (data up to 8 bytes per frame), and is far more complex than MD Protocol.
+MD implements CANOpen compatible with <a class="reference external" href="https://www.can-cia.org/can-knowledge/cia-402-series-canopen-device-profile-for-drives-and-motion-control">CiA 402</a>
+device profile for drives and motion control.</p>
+<section id="migration-to-and-from-canopen">
+<h2>Migration to and from CANopen<a class="headerlink" href="#migration-to-and-from-canopen" title="Link to this heading">#</a></h2>
 <section id="preparation">
-<h2>Preparation<a class="headerlink" href="#preparation" title="Link to this heading">#</a></h2>
+<h3>Preparation<a class="headerlink" href="#preparation" title="Link to this heading">#</a></h3>
 <p>Download flasher programs from here:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../../candlelib/Downloads/Downloads.html#canopen-flashers-legacy"><span class="std std-ref">MD CANopen</span></a></p></li>
@@ -519,9 +538,9 @@ the USB to the host.</p>
 </div>
 </section>
 <section id="migration-to-canopen">
-<h2>Migration to CANopen<a class="headerlink" href="#migration-to-canopen" title="Link to this heading">#</a></h2>
+<h3>Migration to CANopen<a class="headerlink" href="#migration-to-canopen" title="Link to this heading">#</a></h3>
 <section id="first-step">
-<h3>First step<a class="headerlink" href="#first-step" title="Link to this heading">#</a></h3>
+<h4>First step<a class="headerlink" href="#first-step" title="Link to this heading">#</a></h4>
 <p>When switching to CANopen the driver ID must be within the range of valid nodeIDs in CANopen. To set
 this up we usually use the lowest valid nodeID in our protocol which is 10. So the first command
 issued should be for example:</p>
@@ -530,14 +549,14 @@ issued should be for example:</p>
 </div>
 </section>
 <section id="second-step">
-<h3>Second step<a class="headerlink" href="#second-step" title="Link to this heading">#</a></h3>
+<h4>Second step<a class="headerlink" href="#second-step" title="Link to this heading">#</a></h4>
 <p>It is necessary to save this new ID to the persistent memory using save command as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">candletool</span> <span class="n">md</span> <span class="n">save</span> <span class="o">--</span><span class="nb">id</span> <span class="mi">100</span>
 </pre></div>
 </div>
 </section>
 <section id="third-step">
-<h3>Third step<a class="headerlink" href="#third-step" title="Link to this heading">#</a></h3>
+<h4>Third step<a class="headerlink" href="#third-step" title="Link to this heading">#</a></h4>
 <p>Use flasher to flash firmware onto the board:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">path_to_canopen_flasher</span><span class="o">&gt;</span> <span class="o">--</span><span class="nb">id</span> <span class="o">&lt;</span><span class="nb">id</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">baud</span> <span class="o">&lt;</span><span class="n">baudrate</span><span class="o">&gt;</span>
 </pre></div>
@@ -549,7 +568,7 @@ issued should be for example:</p>
 </section>
 </section>
 <section id="migration-from-canopen">
-<h2>Migration from CANopen<a class="headerlink" href="#migration-from-canopen" title="Link to this heading">#</a></h2>
+<h3>Migration from CANopen<a class="headerlink" href="#migration-from-canopen" title="Link to this heading">#</a></h3>
 <p>Using the recovery procedure, the driver can be reverted to version with MD FDCAN protocol. The
 recovery command looks like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">candletool</span> <span class="n">md</span> <span class="n">update</span> <span class="o">--</span><span class="nb">id</span> <span class="mi">9</span> <span class="o">--</span><span class="n">recovery</span> <span class="o">./</span><span class="n">path_to_mab_file</span><span class="o">.</span><span class="n">mab</span>
@@ -564,7 +583,7 @@ recovery re-flashing procedure will begin. The driver should then operate in MD 
 <p>If the nodeID was lower than 10 the driver should automatically assign itself an ID of 10.</p>
 </section>
 <section id="migration-from-canopen-to-legacy-firmware">
-<h2>Migration from CANopen to Legacy firmware<a class="headerlink" href="#migration-from-canopen-to-legacy-firmware" title="Link to this heading">#</a></h2>
+<h3>Migration from CANopen to Legacy firmware<a class="headerlink" href="#migration-from-canopen-to-legacy-firmware" title="Link to this heading">#</a></h3>
 <p>Using the recovery procedure, the driver can be reverted to version with MD FDCAN protocol. The
 recovery command looks like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">path_to_fdcan_protocol_flasher</span><span class="o">&gt;</span> <span class="o">--</span><span class="nb">id</span> <span class="mi">9</span> <span class="o">--</span><span class="n">baud</span> <span class="mi">1</span><span class="n">M</span> <span class="o">--</span><span class="n">wait</span>
@@ -577,6 +596,7 @@ recovery command looks like this:</p>
 <p>After starting this command, the driver needs to be restarted manually and then the recovery
 re-flashing procedure will begin. The driver should then operate in MD FDCAN protocol mode.</p>
 <p>If the nodeID was lower than 10 the driver should automatically assign itself an ID of 10.</p>
+</section>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -646,15 +666,18 @@ re-flashing procedure will begin. The driver should then operate in MD FDCAN pro
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation">Preparation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-to-canopen">Migration to CANopen</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-step">First step</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#second-step">Second step</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#third-step">Third step</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-to-and-from-canopen">Migration to and from CANopen</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation">Preparation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-to-canopen">Migration to CANopen</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#first-step">First step</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#second-step">Second step</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#third-step">Third step</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-from-canopen">Migration from CANopen</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-from-canopen-to-legacy-firmware">Migration from CANopen to Legacy firmware</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-from-canopen">Migration from CANopen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-from-canopen-to-legacy-firmware">Migration from CANopen to Legacy firmware</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
