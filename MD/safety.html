@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Safety &#8212; MD x CANdle Manual</title>
+    <title>Safety &#8212; MAB Ecosystem</title>
   
   
   
@@ -156,8 +156,8 @@
     
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="MD x CANdle Manual - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="MD x CANdle Manual - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="MAB Ecosystem - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="MAB Ecosystem - Home"/>`);</script>
   
   
 </a></div>
@@ -208,8 +208,7 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../PDS/intro.html">PDS - Power Distribution System</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../PDS/overview.html">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../PDS/pds_sdk_examples.html">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PDS/overview.html">Features</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../CANdle/intro.html">CANdle and CANdleHAT</a></li>
@@ -523,20 +522,20 @@ register. This setting can be saved in the non-volatile memory so that it is alw
 actuator power-up. To estimate the maximum current setting for a particular motor, you should use
 the following formula:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split} I [A] = \\frac{\\tau [Nm] \\frac{1}{G_r}}{K_t[\\frac{Nm}{A}]} \end{split}\]</div>
+\[ I [A] = \frac{\tau [Nm] \frac{1}{G_r}}{K_t[\frac{Nm}{A}]} \]</div>
 <p>where</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\( I[A] \)</span> - calculated current in Amps</p></li>
-<li><p><span class="math notranslate nohighlight">\( \\tau \)</span> - desired maximum torque</p></li>
+<li><p><span class="math notranslate nohighlight">\( \tau \)</span> - desired maximum torque</p></li>
 <li><p><span class="math notranslate nohighlight">\( G_r \)</span> - gear ratio</p></li>
 <li><p><span class="math notranslate nohighlight">\( K_t \)</span> - motor’s torque constant</p></li>
 </ul>
 <p>for example let’s calculate the max current limit for AK80-9 motor, for a 2Nm max torque:</p>
-<p><span class="math notranslate nohighlight">\(\\tau = 2 Nm\)</span></p>
+<p><span class="math notranslate nohighlight">\(\tau = 2 Nm\)</span></p>
 <p><span class="math notranslate nohighlight">\(G_r = 9:1 -&gt; 9\)</span></p>
 <p><span class="math notranslate nohighlight">\(K_t = 0.091 Nm/A\)</span></p>
-<p><span class="math notranslate nohighlight">\( I [A] = \\frac{2[Nm] \\cdot \\frac{1}{9}}{0.091[\\frac{Nm}{A}]} \)</span></p>
-<p><span class="math notranslate nohighlight">\( I [A] \\approx 2.44A \)</span></p>
+<p><span class="math notranslate nohighlight">\( I [A] = \frac{2[Nm] \cdot \frac{1}{9}}{0.091[\frac{Nm}{A}]} \)</span></p>
+<p><span class="math notranslate nohighlight">\( I [A] \approx 2.44A \)</span></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Usually this limit should be set to the highest peak torque that is allowed in the system so that it doesn’t limit the actuator performance.</p>
