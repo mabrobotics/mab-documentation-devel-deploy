@@ -493,6 +493,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#important-notes">Important Notes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#with-candle-sdk">With CANdle-SDK</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
@@ -534,6 +535,20 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h1>
+<section id="important-notes">
+<h2>Important Notes<a class="headerlink" href="#important-notes" title="Link to this heading">#</a></h2>
+<p>Before you start working with the MAB ecosystem, here are some key precautions to keep in mind:</p>
+<ol class="arabic simple">
+<li><p><strong>Safety with Actuators</strong>: Unintentional movement can cause serious injury. Always ensure they are securely fixed to a workbench during operation and have enough space to not damage people or goods.</p></li>
+<li><p><strong>Safety Limits</strong>: Familiarize yourself with the <a class="reference internal" href="../MD/safety.html#md-safety"><span class="std std-ref">safety limits</span></a> section in this document. Keep safety limits low during development, and only increase them once you are confident in your understanding and control of the system.</p></li>
+<li><p><strong>Electrical Safety</strong>: Though our systems are designed to work with safe voltages it is adviced to be cautious and not touch powered on systems as well as watch out for any shorts which might cause an explosion at high currents present in the devices.</p></li>
+<li><p><strong>Power Supply Recommendations</strong>: Choose power supply sources that can operate in two quadrants. These supplies should be capable of both supplying and dissipating energy from the motor when it functions as a generator. Avoid using older transformer-based power supplies, as they may block current, leading to dangerous overvoltage events. SMPS power supplies are ideal.</p></li>
+</ol>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Before operating the system, be sure to read the full documentation to understand all safety precautions and avoid potential damage to both the system and yourself.</p>
+</div>
+</section>
 <section id="with-candle-sdk">
 <h2>With CANdle-SDK<a class="headerlink" href="#with-candle-sdk" title="Link to this heading">#</a></h2>
 <section id="prerequisites">
@@ -856,6 +871,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#important-notes">Important Notes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#with-candle-sdk">With CANdle-SDK</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
