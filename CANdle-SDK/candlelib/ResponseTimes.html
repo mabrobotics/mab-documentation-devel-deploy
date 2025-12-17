@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>MD Module &#8212; MAB Ecosystem</title>
+    <title>Response Time &#8212; MAB Ecosystem</title>
   
   
   
@@ -59,12 +59,12 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'CANdle-SDK/candlelib/MDModule';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'CANdle-SDK/candlelib/ResponseTimes';</script>
     <link rel="icon" href="../../_static/logo32x32.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="PDS Module" href="PDSModule.html" />
-    <link rel="prev" title="CANdle Module" href="CANdleModule.html" />
+    <link rel="next" title="CANdleTool" href="../CANdleTool.html" />
+    <link rel="prev" title="PDS Module" href="PDSModule.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -219,9 +219,9 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../intro.html">Software - CANdle-SDK</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="../CANdlelib.html">CANdlelib</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="CANdleModule.html">CANdle Module</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">MD Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDModule.html">MD Module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="PDSModule.html">PDS Module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ResponseTimes.html">Response Time</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Response Time</a></li>
 
 
 
@@ -374,7 +374,7 @@
       
       
       
-      <li><a href="https://github.com/mabrobotics/mab-documentation-devel-deploy/issues/new?title=Issue%20on%20page%20%2FCANdle-SDK/candlelib/MDModule.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/mabrobotics/mab-documentation-devel-deploy/issues/new?title=Issue%20on%20page%20%2FCANdle-SDK/candlelib/ResponseTimes.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -404,7 +404,7 @@
       
       
       
-      <li><a href="../../_sources/CANdle-SDK/candlelib/MDModule.md" target="_blank"
+      <li><a href="../../_sources/CANdle-SDK/candlelib/ResponseTimes.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -488,7 +488,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>MD Module</h1>
+    <h1>Response Time</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -498,19 +498,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functionalities">Functionalities</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to">How-To</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-setup">Basic Setup</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Response Time</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#x86">X86</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-examples">Code Examples</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#impedance">Impedance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-channel">Dual Channel</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostics">Diagnostics</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integration-template">Integration Template</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rpi-usb">RPI (USB)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">Windows</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rpi-spi">RPI (SPI)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-figure">Summary figure</a></li>
 </ul>
-</li>
-</ul>
+
             </nav>
         </div>
     </div>
@@ -521,75 +518,267 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="md-module">
-<h1>MD Module<a class="headerlink" href="#md-module" title="Link to this heading">#</a></h1>
-<p>MD module is mostly a host to <code class="docutils literal notranslate"><span class="pre">MD</span></code> class which represents physical <a class="reference internal" href="../../MD/intro.html"><span class="doc std std-doc">MD</span></a> drivers.</p>
-<p>MD module is intended to help user manage each MD in the CAN network via reads and writes to the
-internal MD registers.</p>
-<p>It can be included into your project via header-file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &quot;MD.hpp&quot;</span>
-</pre></div>
-</div>
-<section id="functionalities">
-<h2>Functionalities<a class="headerlink" href="#functionalities" title="Link to this heading">#</a></h2>
-<p>Main features of MD module include:</p>
-<ul class="simple">
-<li><p>Creating MDs assigned to CANdle instance with unique IDs</p></li>
-<li><p>Managing internal registers of MDs</p></li>
-<li><p>Interpreting MD status bits</p></li>
-<li><p>Provides helper functions for managing MDs, for example: <code class="docutils literal notranslate"><span class="pre">getPosition()</span></code>, <code class="docutils literal notranslate"><span class="pre">zero()</span></code>,
-<code class="docutils literal notranslate"><span class="pre">setTargetPosition()</span></code></p></li>
-</ul>
-</section>
-<section id="how-to">
-<h2>How-To<a class="headerlink" href="#how-to" title="Link to this heading">#</a></h2>
-<p>MD FDCAN protocol is based around accessing data on the drive via registers. Keeping that in mind,
-MD Module functionality is based around reading and writing registers efficiently via CANdle.</p>
-<section id="basic-setup">
-<h3>Basic Setup<a class="headerlink" href="#basic-setup" title="Link to this heading">#</a></h3>
-<p>Basically every program using CANdlelib and MD has the following workflow:</p>
-<ol class="arabic simple">
-<li><p>Create CANdle object connected to computer</p></li>
-<li><p>Create MD objects connected via CAN to CANdle</p></li>
-<li><p>Setup Motion Mode, Limits etc.</p></li>
-<li><p>Enable MD</p></li>
-<li><p>Enter a loop, with regular read/writes of registers.</p></li>
-<li><p>Disable MD, free CANdle</p></li>
-</ol>
-</section>
-</section>
-<section id="code-examples">
-<h2>Code Examples<a class="headerlink" href="#code-examples" title="Link to this heading">#</a></h2>
-<section id="impedance">
-<h3><a class="reference external" href="https://github.com/mabrobotics/CANdle-SDK/blob/main/examples/cpp/md_example_impedance.cpp">Impedance</a><a class="headerlink" href="#impedance" title="Link to this heading">#</a></h3>
-<p>This example shows use case of MD module in which we connect with CANdle device, scan the CAN
-network in search of MDs, than we zero the drive, set its mode to impedance (can be any other mode
-within the enum) and start the control loop.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="response-time">
+<h1>Response Time<a class="headerlink" href="#response-time" title="Link to this heading">#</a></h1>
+<p>The test was performed on multiple platforms, OS and interfaces. The frequency represents the time it took for the selected frames to reach set amount of drivers plus and for the CANdle device to register confirmation messages from all of successful transfers. The test was performed using an async CANdle-SDK API written and was written in C++.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>One of the important things to remember when using MD module is to be mindful of MDs internal timeout mechanic which after not receiving messages for some time, if not disabled, will set MD back to idle state. More information on that <a class="reference internal" href="../../MD/safety.html#watchdog"><span class="std std-ref">here</span></a>.</p>
+<p>Values listed below may vary for user systems . They depend on the peripheral load as well as the performance of the system itself and other factors.</p>
+</div>
+<section id="x86">
+<h2>X86<a class="headerlink" href="#x86" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>MD count</p></th>
+<th class="head text-right"><p>Mean [Hz]</p></th>
+<th class="head text-right"><p>RMSE [Hz]</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>1992,032</p></td>
+<td class="text-right"><p>115,078</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>1023,541</p></td>
+<td class="text-right"><p>34,572</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>797,448</p></td>
+<td class="text-right"><p>15,89</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>4</p></td>
+<td class="text-right"><p>622,665</p></td>
+<td class="text-right"><p>25,201</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>5</p></td>
+<td class="text-right"><p>526,316</p></td>
+<td class="text-right"><p>12,742</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>6</p></td>
+<td class="text-right"><p>430,849</p></td>
+<td class="text-right"><p>39,979</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>7</p></td>
+<td class="text-right"><p>377,786</p></td>
+<td class="text-right"><p>11,56</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>8</p></td>
+<td class="text-right"><p>337,952</p></td>
+<td class="text-right"><p>6,853</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>9</p></td>
+<td class="text-right"><p>287,109</p></td>
+<td class="text-right"><p>7,913</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>10</p></td>
+<td class="text-right"><p>264,34</p></td>
+<td class="text-right"><p>8,874</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>11</p></td>
+<td class="text-right"><p>241,138</p></td>
+<td class="text-right"><p>9,885</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>12</p></td>
+<td class="text-right"><p>219,829</p></td>
+<td class="text-right"><p>12,758</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </section>
-<section id="dual-channel">
-<h3><a class="reference external" href="https://github.com/mabrobotics/CANdle-SDK/blob/main/examples/cpp/md_example_dual_chanel.cpp">Dual Channel</a><a class="headerlink" href="#dual-channel" title="Link to this heading">#</a></h3>
-<p>This example shows how to attach a unique CANdle to the MD device (in case two or more candles are
-needed for latency improvements over CAN).</p>
-<p>It also show how to manually connect the bus interface to CANdle.</p>
 </section>
-<section id="diagnostics">
-<h3><a class="reference external" href="https://github.com/mabrobotics/CANdle-SDK/blob/main/examples/cpp/md_example_diagnostics.cpp">Diagnostics</a><a class="headerlink" href="#diagnostics" title="Link to this heading">#</a></h3>
-<p>This example shows how to read arbitrary registers during MD operation. List of available registers
-can be found <a class="reference internal" href="../../MD/Communication/fdcan.html#registers"><span class="std std-ref">here</span></a>.</p>
-</section>
-<section id="integration-template">
-<h3><a class="reference external" href="https://github.com/mabrobotics/CANdle-SDK/blob/main/examples/cpp/app_template.cpp">Integration Template</a><a class="headerlink" href="#integration-template" title="Link to this heading">#</a></h3>
-<p>This template can be used to quickly integrate CANdlelib and MAB devices into your own project.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>You can comment out unnecessary parts if you don’t need all the features like PDS integration.</p>
+<section class="tex2jax_ignore mathjax_ignore" id="rpi-usb">
+<h1>RPI (USB)<a class="headerlink" href="#rpi-usb" title="Link to this heading">#</a></h1>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>MD count</p></th>
+<th class="head text-right"><p>Mean [Hz]</p></th>
+<th class="head text-right"><p>RMSE [Hz]</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>1689,189</p></td>
+<td class="text-right"><p>142,668</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>1037,344</p></td>
+<td class="text-right"><p>89,315</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>752,445</p></td>
+<td class="text-right"><p>40,765</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>4</p></td>
+<td class="text-right"><p>564,972</p></td>
+<td class="text-right"><p>31,6</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>5</p></td>
+<td class="text-right"><p>490,436</p></td>
+<td class="text-right"><p>16,837</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>6</p></td>
+<td class="text-right"><p>365,898</p></td>
+<td class="text-right"><p>14,593</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>7</p></td>
+<td class="text-right"><p>327,761</p></td>
+<td class="text-right"><p>8,916</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>8</p></td>
+<td class="text-right"><p>301,023</p></td>
+<td class="text-right"><p>9,062</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>9</p></td>
+<td class="text-right"><p>279,174</p></td>
+<td class="text-right"><p>9,586</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>10</p></td>
+<td class="text-right"><p>249,938</p></td>
+<td class="text-right"><p>4,06</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>11</p></td>
+<td class="text-right"><p>217,581</p></td>
+<td class="text-right"><p>5,16</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>12</p></td>
+<td class="text-right"><p>207,857</p></td>
+<td class="text-right"><p>12,443</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </section>
+<section class="tex2jax_ignore mathjax_ignore" id="windows">
+<h1>Windows<a class="headerlink" href="#windows" title="Link to this heading">#</a></h1>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>MD count</p></th>
+<th class="head text-right"><p>Mean [Hz]</p></th>
+<th class="head text-right"><p>RMSE [Hz]</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>666,667</p></td>
+<td class="text-right"><p>36,444</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>333,444</p></td>
+<td class="text-right"><p>1,001</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>250,752</p></td>
+<td class="text-right"><p>12,072</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>4</p></td>
+<td class="text-right"><p>191,022</p></td>
+<td class="text-right"><p>11,385</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>5</p></td>
+<td class="text-right"><p>156,201</p></td>
+<td class="text-right"><p>17,201</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>6</p></td>
+<td class="text-right"><p>139,782</p></td>
+<td class="text-right"><p>10,141</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>7</p></td>
+<td class="text-right"><p>129,032</p></td>
+<td class="text-right"><p>8,241</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>8</p></td>
+<td class="text-right"><p>102,533</p></td>
+<td class="text-right"><p>16,81</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>9</p></td>
+<td class="text-right"><p>88,191</p></td>
+<td class="text-right"><p>14,039</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>10</p></td>
+<td class="text-right"><p>83,181</p></td>
+<td class="text-right"><p>11,769</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>11</p></td>
+<td class="text-right"><p>73,512</p></td>
+<td class="text-right"><p>10,125</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>12</p></td>
+<td class="text-right"><p>71,49</p></td>
+<td class="text-right"><p>9,036</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
+<section class="tex2jax_ignore mathjax_ignore" id="rpi-spi">
+<h1>RPI (SPI)<a class="headerlink" href="#rpi-spi" title="Link to this heading">#</a></h1>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>MD count</p></th>
+<th class="head text-right"><p>Mean [Hz]</p></th>
+<th class="head text-right"><p>RMSE [Hz]</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>1267</p></td>
+<td class="text-right"><p>69</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>885</p></td>
+<td class="text-right"><p>48</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>614</p></td>
+<td class="text-right"><p>79</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>4</p></td>
+<td class="text-right"><p>480</p></td>
+<td class="text-right"><p>18</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>5</p></td>
+<td class="text-right"><p>456</p></td>
+<td class="text-right"><p>50</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>6</p></td>
+<td class="text-right"><p>348</p></td>
+<td class="text-right"><p>68</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>7</p></td>
+<td class="text-right"><p>293</p></td>
+<td class="text-right"><p>9</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>8</p></td>
+<td class="text-right"><p>286</p></td>
+<td class="text-right"><p>26</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>9</p></td>
+<td class="text-right"><p>284</p></td>
+<td class="text-right"><p>28</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>10</p></td>
+<td class="text-right"><p>268</p></td>
+<td class="text-right"><p>25</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>11</p></td>
+<td class="text-right"><p>225</p></td>
+<td class="text-right"><p>38</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>12</p></td>
+<td class="text-right"><p>237</p></td>
+<td class="text-right"><p>9</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="summary-figure">
+<h1>Summary figure<a class="headerlink" href="#summary-figure" title="Link to this heading">#</a></h1>
+<figure class="align-center">
+<img alt="ResponseTimes" class="no-scaled-link" src="../../_images/ResponseTimes.png" />
+</figure>
 </section>
 
     <script type="text/x-thebe-config">
@@ -623,20 +812,20 @@ can be found <a class="reference internal" href="../../MD/Communication/fdcan.ht
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="CANdleModule.html"
+       href="PDSModule.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">CANdle Module</p>
+        <p class="prev-next-title">PDS Module</p>
       </div>
     </a>
     <a class="right-next"
-       href="PDSModule.html"
+       href="../CANdleTool.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">PDS Module</p>
+        <p class="prev-next-title">CANdleTool</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -656,19 +845,16 @@ can be found <a class="reference internal" href="../../MD/Communication/fdcan.ht
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functionalities">Functionalities</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to">How-To</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-setup">Basic Setup</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Response Time</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#x86">X86</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-examples">Code Examples</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#impedance">Impedance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-channel">Dual Channel</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostics">Diagnostics</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integration-template">Integration Template</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rpi-usb">RPI (USB)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">Windows</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rpi-spi">RPI (SPI)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-figure">Summary figure</a></li>
 </ul>
-</li>
-</ul>
+
   </nav></div>
 
 </div></div>
