@@ -533,11 +533,25 @@ document.write(`
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
-<p>Most strait forward way of getting the CANdleSDK python module is via pypi repository using pip. The link to the repository can be found <a class="reference external" href="https://pypi.org/project/candlesdk/">here</a>.</p>
+<p>The recommended way of installing python module of CANdle-SDK is to use <a class="reference external" href="https://pypi.org/project/candlesdk/">pypi CANdle-SDK repository</a> along with <a class="reference external" href="https://docs.python.org/3/library/venv.html">virtual environment for python</a>.</p>
+<p>The commands may look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="n">venv</span>
+<span class="n">source</span> <span class="o">./</span><span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">candlesdk</span>
+</pre></div>
+</div>
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h2>
 <p>For usage examples please refer to the <a class="reference external" href="https://github.com/mabrobotics/CANdle-SDK/tree/main/examples/py">python examples</a>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If you have installed the CANdle-SDK using virtual environment remember to call <code class="docutils literal notranslate"><span class="pre">source</span></code> command on <code class="docutils literal notranslate"><span class="pre">activate</span></code> script inside virtual envrionment directory whenever you are trying to execute code with CANdleSDK.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See <a class="reference internal" href="../GettingStarted/GettingStarted.html#getting-started"><span class="std std-ref">getting started</span></a> section for the exact step-by-step guide to running python examples.</p>
+</div>
 </section>
 </section>
 
