@@ -531,6 +531,7 @@ of the encoder is 14 bits (16384 counts per rotation). The drive aggregates all 
 provide <strong>multi-rotation positional feedback</strong>. The reference position (0.0 rad) is set by the user
 and stored in the non-volatile memory. Please see <a class="reference internal" href="../CANdle-SDK/candletool/Commands.html#candletool-commands"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">candletool</span> <span class="pre">md</span> <span class="pre">zero</span></code></span></a>
 command for more information on how to set the desired zero position.</p>
+<p><strong>When the actuator power-up, the position readout is clamped to in -PI to +PI rad.</strong></p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>When using geared actuators with gear ratios above 1:1 it is not possible to determine the position after startup unambiguously, since the motor completes multiple rotations per single rotation of the output shaft. For example, for a 2:1 gearbox, there are two sections within a single output shaft rotation where the motor shaft is in the same position. Unless the motor is placed in the wrong “section” during startup the absolute encoder functionality will work. To deal with this issue please see the <a class="reference internal" href="encoders.html#aux-encoders"><span class="std std-ref">axu encoder</span></a>.</p>

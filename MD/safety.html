@@ -562,7 +562,37 @@ tolerate voltage rises and dissipate the energy that can be put into the bus. Th
 from overheating, as well as the surrounding environment from too-powerful actuator movements.
 Limits apply to: position, velocity, torque, phase current, and temperature of the MOSFETs and the
 motor.</p>
-</section>
+<p>The limits are applied in cascading manner, with highest priority:</p>
+<ul class="simple">
+<li><p>driver current limit, (highest priority),</p></li>
+<li><p>motor current limiter,</p></li>
+<li><p>torque limiter,</p></li>
+<li><p>position/velocity limiters (lowest priority).</p></li>
+</ul>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>EXAMPLE</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Lets assume the actuator is set up in Velocity PID mode, with <code class="docutils literal notranslate"><span class="pre">kP</span> <span class="pre">=</span> <span class="pre">1.0</span></code>, and rotor is stationary.
+Assume limits are:</p>
+<ul class="simple">
+<li><p class="sd-card-text">Velocity limit: 5 rad/s</p></li>
+<li><p class="sd-card-text">Torque limit: 3 Nm</p></li>
+<li><p class="sd-card-text">Motor Current limit: 1A</p></li>
+<li><p class="sd-card-text">Torque constant (Kt): 1 Nm/A</p></li>
+<li><p class="sd-card-text">Driver Current limit: 20A (md20)</p></li>
+</ul>
+<p class="sd-card-text">Now we command the actuator to spin at <code class="docutils literal notranslate"><span class="pre">target</span> <span class="pre">velocity</span> <span class="pre">=</span> <span class="pre">10</span> <span class="pre">rad/s</span></code>.</p>
+<p class="sd-card-text">The following chain of events will happen internally on the actuator:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text">The velocity command is clipped to Velocity limit, from 10 rad/s to 5 rad/s - a Motion Status warning bit is set,</p></li>
+<li><p class="sd-card-text">Velocity PID regulator computes requested: <code class="docutils literal notranslate"><span class="pre">torque</span> <span class="pre">=</span> <span class="pre">velocity</span> <span class="pre">error</span> <span class="pre">*</span> <span class="pre">kP</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">(5</span> <span class="pre">rad/s</span> <span class="pre">-</span> <span class="pre">0</span> <span class="pre">rad/s)</span> <span class="pre">*</span> <span class="pre">1.0</span> <span class="pre">=</span> <span class="pre">5</span> <span class="pre">Nm</span></code>,</p></li>
+<li><p class="sd-card-text">Torque gets clipped to the Torque limit, from 5Nm to 3Nm - Motion Status warning bit is set,</p></li>
+<li><p class="sd-card-text">Requested current is computed: <code class="docutils literal notranslate"><span class="pre">Torque</span> <span class="pre">*</span> <span class="pre">Kt</span> <span class="pre">=</span> <span class="pre">current</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">3Nm</span> <span class="pre">*</span> <span class="pre">1</span> <span class="pre">Nm/A</span> <span class="pre">=</span> <span class="pre">3A</span></code>,</p></li>
+<li><p class="sd-card-text">The requested current is then clipped by Motor Current Limit from 3A to 1A,</p></li>
+<li><p class="sd-card-text">Resulting 1A is being applied to the motor, as it is lower than Driver Current Limit.</p></li>
+</ol>
+</div>
+</details></section>
 <section id="position-limit">
 <h2>Position Limit<a class="headerlink" href="#position-limit" title="Link to this heading">#</a></h2>
 <p>Position limit is respected only in Impedance / Position PID / Profile Position modes. When target
