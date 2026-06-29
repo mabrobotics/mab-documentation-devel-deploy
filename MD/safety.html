@@ -504,11 +504,12 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#communication-watchdog">Communication Watchdog</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-limit">Current Limit</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Safety limits</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torque-limit">Torque Limit</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-limit">Velocity Limit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recuperation">Recuperation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#safety-limits">Safety limits</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#position-limit">Position Limit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-limit">Velocity Limit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torque-limit">Torque Limit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-limit">Current Limit</a></li>
 </ul>
             </nav>
         </div>
@@ -527,7 +528,7 @@ document.write(`
 <p>MD drivers feature an Communication Watchdog Timer. This timer will shut down the drive stage when
 no FDCAN frame has been received in a specified time. This is to protect the drive and its
 surroundings in an event of loss of communications, for example by physical damage to the wiring. By
-default, the watchdog is set to 250ms. This time can be set to any value in the range of 1 to 2000ms
+default, the watchdog is set to 200ms. This time can be set to any value in the range of 1 to 2000ms
 using <code class="docutils literal notranslate"><span class="pre">candletool</span> <span class="pre">md</span> <span class="pre">config</span> <span class="pre">can</span></code> command. When the watchdog is set to 0, it will disable the timer,
 however, this can lead to dangerous situations, and it is not a recommended way of operating MD.</p>
 <div class="admonition warning">
@@ -535,8 +536,75 @@ however, this can lead to dangerous situations, and it is not a recommended way 
 <p>We do not recommend disabling the CAN watchdog timer!</p>
 </div>
 </section>
+<section id="recuperation">
+<h2>Recuperation<a class="headerlink" href="#recuperation" title="Link to this heading">#</a></h2>
+<p>MD brakes by utilizing regeneration strategy - it havests energy of the rotating motor, pushing it back
+into the DC bus. As MD is targeted for mobile robots applications, this allows for more efficient
+operation and recharging the battery of the robot.</p>
+<p>Recuperation however can however be dangerous in systems not prepared for that. While working with
+stationary applications, powered by a power supply unit (PSU) it is important to make sure the circuit can
+tolerate voltage rises and dissipate the energy that can be put into the bus. This can be done by:</p>
+<ul class="simple">
+<li><p>using two-quadrant power supply (current source/sink operation),</p></li>
+<li><p>utilizing voltage chopper,</p></li>
+<li><p>using <a class="reference internal" href="../PDS/intro.html#pds"><span class="std std-ref">PDS</span></a> with <a class="reference internal" href="../PDS/brake_resistor.html#pds-br"><span class="std std-ref">braking resistor (BR)</span></a> module.</p></li>
+</ul>
+<p>While working with battery-powered systems, make sure:</p>
+<ul class="simple">
+<li><p>the battery can be charged from MD bus (ie. no dc-dc converters in between),</p></li>
+<li><p>the battery can handle expected repuperation current levels,</p></li>
+<li><p>there is suitable protection for voltage rises, when the battery is full.</p></li>
+</ul>
+</section>
+<section id="safety-limits">
+<span id="id1"></span><h2>Safety limits<a class="headerlink" href="#safety-limits" title="Link to this heading">#</a></h2>
+<p>Safety limits are implemented to limit the actuator parameters, to protect the controller or motor
+from overheating, as well as the surrounding environment from too-powerful actuator movements.
+Limits apply to: position, velocity, torque, phase current, and temperature of the MOSFETs and the
+motor.</p>
+</section>
+<section id="position-limit">
+<h2>Position Limit<a class="headerlink" href="#position-limit" title="Link to this heading">#</a></h2>
+<p>Position limit is respected only in Impedance / Position PID / Profile Position modes. When target
+position, set by the user, exceeds the <code class="docutils literal notranslate"><span class="pre">&lt;position</span> <span class="pre">limit</span> <span class="pre">min</span> <span class="pre">:</span> <span class="pre">position</span> <span class="pre">limit</span> <span class="pre">max&gt;</span></code> param range the
+target is limited to that range, and a <a class="reference internal" href="status_utility.html#motion-status"><span class="std std-ref">motion warning</span></a> is generated. Attempt to
+start the motor outside the range will generate a motion error.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/position_limit.png"><img alt="../_images/position_limit.png" src="../_images/position_limit.png" style="width: 1000px;" />
+</a>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Setting both Position limit min and max, to 0.0, will disable the position limiter completely.</p>
+</div>
+</section>
+<section id="velocity-limit">
+<h2>Velocity Limit<a class="headerlink" href="#velocity-limit" title="Link to this heading">#</a></h2>
+<p>Velocity limit is respected only in Velocity PID / Profile Velocity and Impedance / Position PID /
+Profile Position modes. When target velocity, set either by the user or the Position PID, exceeds
+the <code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">velocity</span></code> param the target is limited, and a <a class="reference internal" href="status_utility.html#motion-status"><span class="std std-ref">motion warning</span></a> is generated.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/velocity_limit.png"><img alt="../_images/velocity_limit.png" src="../_images/velocity_limit.png" style="width: 1000px;" />
+</a>
+</figure>
+</section>
+<section id="torque-limit">
+<h2>Torque Limit<a class="headerlink" href="#torque-limit" title="Link to this heading">#</a></h2>
+<p>The next limit is the max torque limit which can be set using the CANdle script. This limit applies
+to maximum torque and is expressed in Nm. It is respected in all motion modes. When target torque,
+set either by either of the controllers, exceeds the <code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">torque</span></code> param the target torque is limited
+and a <a class="reference internal" href="status_utility.html#motion-status"><span class="std std-ref">motion warning</span></a> is generated.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/torque_limit.png"><img alt="../_images/torque_limit.png" src="../_images/torque_limit.png" style="width: 1000px;" />
+</a>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>if the torque bandwidth is set to a low value it is possible to read torque values that are above limits when external torque is applied (for example during impacts). This is only true in transition states - when the load is constant the limits will work as expected. This is because with low torque bandwidth the internal torque PI controllers may be too slow to compensate for rapidly changing torque setpoint when hitting the torque/current limit. If you care about accurate torque readout be sure to play with the torque bandwidth parameter and possibly increase it from the default level.</p>
+</div>
+</section>
 <section id="current-limit">
-<span id="safety-limits"></span><h2>Current Limit<a class="headerlink" href="#current-limit" title="Link to this heading">#</a></h2>
+<h2>Current Limit<a class="headerlink" href="#current-limit" title="Link to this heading">#</a></h2>
 <p>Let’s start with the max current limit:</p>
 <figure class="align-center">
 <a class="reference internal image-reference" href="../_images/current_limit.png"><img alt="../_images/current_limit.png" src="../_images/current_limit.png" style="width: 1000px;" />
@@ -565,53 +633,6 @@ the following formula:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Usually this limit should be set to the highest peak torque that is allowed in the system so that it doesn’t limit the actuator performance.</p>
-</div>
-</section>
-<section id="id1">
-<h2>Safety limits<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<p>Safety limits are implemented to limit the actuator parameters, to protect the controller or motor
-from overheating, as well as the surrounding environment from too-powerful actuator movements.
-Limits apply to: position, velocity, torque, phase current, and temperature of the MOSFETs and the
-motor.</p>
-</section>
-<section id="torque-limit">
-<h2>Torque Limit<a class="headerlink" href="#torque-limit" title="Link to this heading">#</a></h2>
-<p>The next limit is the max torque limit which can be set using the CANdle script. This limit applies
-to maximum torque and is expressed in Nm. It is respected in all motion modes. When target torque,
-set either by either of the controllers, exceeds the <code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">torque</span></code> param the target torque is limited
-and a <a class="reference internal" href="status_utility.html#motion-status"><span class="std std-ref">motion warning</span></a> is generated.</p>
-<figure class="align-center">
-<a class="reference internal image-reference" href="../_images/torque_limit.png"><img alt="../_images/torque_limit.png" src="../_images/torque_limit.png" style="width: 1000px;" />
-</a>
-</figure>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>if the torque bandwidth is set to a low value it is possible to read torque values that are above limits when external torque is applied (for example during impacts). This is only true in transition states - when the load is constant the limits will work as expected. This is because with low torque bandwidth the internal torque PI controllers may be too slow to compensate for rapidly changing torque setpoint when hitting the torque/current limit. If you care about accurate torque readout be sure to play with the torque bandwidth parameter and possibly increase it from the default level.</p>
-</div>
-</section>
-<section id="velocity-limit">
-<h2>Velocity Limit<a class="headerlink" href="#velocity-limit" title="Link to this heading">#</a></h2>
-<p>Velocity limit is respected only in Velocity PID / Profile Velocity and Impedance / Position PID /
-Profile Position modes. When target velocity, set either by the user or the Position PID, exceeds
-the <code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">velocity</span></code> param the target is limited, and a <a class="reference internal" href="status_utility.html#motion-status"><span class="std std-ref">motion warning</span></a> is generated.</p>
-<figure class="align-center">
-<a class="reference internal image-reference" href="../_images/velocity_limit.png"><img alt="../_images/velocity_limit.png" src="../_images/velocity_limit.png" style="width: 1000px;" />
-</a>
-</figure>
-</section>
-<section id="position-limit">
-<h2>Position Limit<a class="headerlink" href="#position-limit" title="Link to this heading">#</a></h2>
-<p>Position limit is respected only in Impedance / Position PID / Profile Position modes. When target
-position, set by the user, exceeds the <code class="docutils literal notranslate"><span class="pre">&lt;position</span> <span class="pre">limit</span> <span class="pre">min</span> <span class="pre">:</span> <span class="pre">position</span> <span class="pre">limit</span> <span class="pre">max&gt;</span></code> param range the
-target is limited to that range, and a <a class="reference internal" href="status_utility.html#motion-status"><span class="std std-ref">motion warning</span></a> is generated. Attempt to
-start the motor outside the range will generate a motion error.</p>
-<figure class="align-center">
-<a class="reference internal image-reference" href="../_images/position_limit.png"><img alt="../_images/position_limit.png" src="../_images/position_limit.png" style="width: 1000px;" />
-</a>
-</figure>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Setting both Position limit min and max, to 0.0, will disable the limiters completely.</p>
 </div>
 </section>
 </section>
@@ -681,11 +702,12 @@ start the motor outside the range will generate a motion error.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#communication-watchdog">Communication Watchdog</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-limit">Current Limit</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Safety limits</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torque-limit">Torque Limit</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-limit">Velocity Limit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recuperation">Recuperation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#safety-limits">Safety limits</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#position-limit">Position Limit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-limit">Velocity Limit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torque-limit">Torque Limit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-limit">Current Limit</a></li>
 </ul>
   </nav></div>
 
