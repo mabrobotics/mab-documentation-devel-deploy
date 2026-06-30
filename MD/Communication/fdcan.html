@@ -543,7 +543,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="md-communication">
+  <style>
+.small-table table {
+  font-size: 12px;
+}
+</style>
+<section class="tex2jax_ignore mathjax_ignore" id="md-communication">
 <span id="md-protocol"></span><h1>MD communication<a class="headerlink" href="#md-communication" title="Link to this heading">#</a></h1>
 <p>The easiest way to communicate with MD controllers is to use a CANdle device connected to a PC. Even
 though we are aware some customers want to integrate the MD controllers in their product with
@@ -1052,41 +1057,16 @@ response is produced at all, and error handling must happen via timeout handling
 	</tbody>
 </table>
 <p></p>
-<p>Error codes are int8 based <strong>negative</strong> values.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Error Code</p></th>
-<th class="head"><p>Error Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>0 (0x00)</p></td>
-<td><p>NONE</p></td>
-<td><p>No error</p></td>
-</tr>
-<tr class="row-odd"><td><p>-1 (0xFF)</p></td>
-<td><p>DEPRECATED</p></td>
-<td><p>Register deprecated - can be treated as warning. The call had no effect</p></td>
-</tr>
-<tr class="row-even"><td><p>-2 (0xFE)</p></td>
-<td><p>INVALID</p></td>
-<td><p>Frame composition invalid - usually incorrecy size of frame layout</p></td>
-</tr>
-<tr class="row-odd"><td><p>-3 (0xFD)</p></td>
-<td><p>UNKNOWN</p></td>
-<td><p>Register ID unknown - The call has no effect</p></td>
-</tr>
-<tr class="row-even"><td><p>-4 (0xFC)</p></td>
-<td><p>OUT_OF_RANGE</p></td>
-<td><p>Register value was parsed, but was out of acceptable range. Refer to register table below.</p></td>
-</tr>
-<tr class="row-odd"><td><p>-5 (0xFB)</p></td>
-<td><p>ACCESS</p></td>
-<td><p>Trying to write to read-only register, or read write-only register</p></td>
-</tr>
-</tbody>
-</table>
+<div class="small-table">
+Error codes are int8 based **negative** values.
+| Error Code | Error Name | Description |
+| --- | --- | -------|
+|  0 (0x00) | NONE | No error |  
+| -1 (0xFF) | DEPRECATED | Register deprecated - can be treated as warning. The call had no effect | 
+| -2 (0xFE) | INVALID | Frame composition invalid - usually incorrecy size of frame layout |  
+| -3 (0xFD) | UNKNOWN | Register ID unknown - The call has no effect |  
+| -4 (0xFC) | OUT_OF_RANGE | Register value was parsed, but was out of acceptable range. Refer to register table below. |  
+| -5 (0xFB) | ACCESS | Trying to write to read-only register, or read write-only register |  
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -1146,11 +1126,6 @@ Which in raw HEX is: 0xA1 FC 1D 00
 <span id="registers"></span><h2>Register Table<a class="headerlink" href="#register-table" title="Link to this heading">#</a></h2>
 <p>Below is full register list supported by MD drives. The list is being updated regularely as MD firmware
 releases introduce new features.</p>
-<style>
-.small-table table {
-  font-size: 12px;
-}
-</style>
 <div class="small-table">
 <section id="communications">
 <h3>Communications<a class="headerlink" href="#communications" title="Link to this heading">#</a></h3>
@@ -1160,7 +1135,7 @@ releases introduce new features.</p>
 <th class="head text-center"><p>Addr</p></th>
 <th class="head text-center"><p>R/W</p></th>
 <th class="head text-left"><p>Type</p></th>
-<th class="head text-left"><p>Limits</p></th>
+<th class="head text-left"><p>Value</p></th>
 <th class="head text-left"><p>Description</p></th>
 <th class="head text-left"><p>Status</p></th>
 </tr>
@@ -1210,7 +1185,7 @@ releases introduce new features.</p>
 <th class="head text-center"><p>Addr</p></th>
 <th class="head text-center"><p>R/W</p></th>
 <th class="head text-left"><p>Type</p></th>
-<th class="head text-left"><p>Limits</p></th>
+<th class="head text-left"><p>Value</p></th>
 <th class="head text-left"><p>Description</p></th>
 <th class="head text-left"><p>Status</p></th>
 </tr>
@@ -1316,7 +1291,7 @@ releases introduce new features.</p>
 <th class="head text-right"><p>Addr</p></th>
 <th class="head"><p>R/W</p></th>
 <th class="head"><p>Type</p></th>
-<th class="head"><p>Limits</p></th>
+<th class="head"><p>Value</p></th>
 <th class="head"><p>Description</p></th>
 <th class="head"><p>Status</p></th>
 </tr>
@@ -1390,7 +1365,7 @@ releases introduce new features.</p>
 <th class="head text-right"><p>Addr</p></th>
 <th class="head"><p>R/W</p></th>
 <th class="head"><p>Type</p></th>
-<th class="head"><p>Limits</p></th>
+<th class="head"><p>Value</p></th>
 <th class="head"><p>Description</p></th>
 <th class="head"><p>Status</p></th>
 </tr>
@@ -1424,7 +1399,7 @@ releases introduce new features.</p>
 <th class="head text-right"><p>Addr</p></th>
 <th class="head"><p>R/W</p></th>
 <th class="head"><p>Type</p></th>
-<th class="head"><p>Limits</p></th>
+<th class="head"><p>Value</p></th>
 <th class="head"><p>Description</p></th>
 <th class="head"><p>Status</p></th>
 </tr>
@@ -1602,7 +1577,7 @@ releases introduce new features.</p>
 <th class="head text-right"><p>Addr</p></th>
 <th class="head"><p>R/W</p></th>
 <th class="head"><p>Type</p></th>
-<th class="head"><p>Limits</p></th>
+<th class="head"><p>Value</p></th>
 <th class="head"><p>Description</p></th>
 <th class="head"><p>Status</p></th>
 </tr>
@@ -1724,7 +1699,7 @@ releases introduce new features.</p>
 <th class="head text-right"><p>Addr</p></th>
 <th class="head"><p>R/W</p></th>
 <th class="head"><p>Type</p></th>
-<th class="head"><p>Limits</p></th>
+<th class="head"><p>Value</p></th>
 <th class="head"><p>Description</p></th>
 <th class="head"><p>Status</p></th>
 </tr>
@@ -1790,7 +1765,7 @@ releases introduce new features.</p>
 <th class="head text-right"><p>Addr</p></th>
 <th class="head"><p>R/W</p></th>
 <th class="head"><p>Type</p></th>
-<th class="head"><p>Limits</p></th>
+<th class="head"><p>Value</p></th>
 <th class="head"><p>Description</p></th>
 <th class="head"><p>Status</p></th>
 </tr>
@@ -1856,7 +1831,7 @@ releases introduce new features.</p>
 <th class="head text-right"><p>Addr</p></th>
 <th class="head"><p>R/W</p></th>
 <th class="head"><p>Type</p></th>
-<th class="head"><p>Limits</p></th>
+<th class="head"><p>Value</p></th>
 <th class="head"><p>Description</p></th>
 <th class="head"><p>Status</p></th>
 </tr>
@@ -1922,7 +1897,7 @@ releases introduce new features.</p>
 <th class="head text-right"><p>Addr</p></th>
 <th class="head"><p>R/W</p></th>
 <th class="head"><p>Type</p></th>
-<th class="head"><p>Limits</p></th>
+<th class="head"><p>Value</p></th>
 <th class="head"><p>Description</p></th>
 <th class="head"><p>Status</p></th>
 </tr>
@@ -1964,7 +1939,7 @@ releases introduce new features.</p>
 <th class="head text-right"><p>Addr</p></th>
 <th class="head"><p>R/W</p></th>
 <th class="head"><p>Type</p></th>
-<th class="head"><p>Limits</p></th>
+<th class="head"><p>Value</p></th>
 <th class="head"><p>Description</p></th>
 <th class="head"><p>Status</p></th>
 </tr>
@@ -1998,7 +1973,7 @@ releases introduce new features.</p>
 <th class="head text-right"><p>Addr</p></th>
 <th class="head"><p>R/W</p></th>
 <th class="head"><p>Type</p></th>
-<th class="head"><p>Limits</p></th>
+<th class="head"><p>Value</p></th>
 <th class="head"><p>Description</p></th>
 <th class="head"><p>Status</p></th>
 </tr>
@@ -2018,6 +1993,54 @@ releases introduce new features.</p>
 <td><p>float</p></td>
 <td><p>&gt; 0</p></td>
 <td><p>Current sense resistance.</p></td>
+<td><p><strong>Active</strong><br>from v3.0.0</p></td>
+</tr>
+<tr class="row-even"><td><p>maxDriverCurrent</p></td>
+<td class="text-right"><p>0x701</p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>float</p></td>
+<td><p>&gt; 0</p></td>
+<td><p>Max measurable (peak) current.</p></td>
+<td><p><strong>Active</strong><br>from v3.0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>productionDate</p></td>
+<td class="text-right"><p>0x7FB</p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>uint32</p></td>
+<td><p>&gt; 0</p></td>
+<td><p>Production date encoded in ddmmyy format</p></td>
+<td><p><strong>Active</strong><br>from v3.0.0</p></td>
+</tr>
+<tr class="row-even"><td><p>productionBatch</p></td>
+<td class="text-right"><p>0x7FC</p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>uint32</p></td>
+<td><p>&gt; 0</p></td>
+<td><p>Production batch code</p></td>
+<td><p><strong>Active</strong><br>from v3.0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>productionUID</p></td>
+<td class="text-right"><p>0x7FD</p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>uint32</p></td>
+<td><p>&gt; 0</p></td>
+<td><p>Unique Identifier of MD</p></td>
+<td><p><strong>Active</strong><br>from v3.0.0</p></td>
+</tr>
+<tr class="row-even"><td><p>hardwareRevision</p></td>
+<td class="text-right"><p>0x7FE</p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>uint32</p></td>
+<td><p>&gt; 0</p></td>
+<td><p>Hardware revision</p></td>
+<td><p><strong>Active</strong><br>from v3.0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>hardwareType</p></td>
+<td class="text-right"><p>0x7FF</p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>uint32</p></td>
+<td><p>&gt; 0</p></td>
+<td><p>Hardware yype id</p></td>
 <td><p><strong>Active</strong><br>from v3.0.0</p></td>
 </tr>
 <tr class="row-even"><td><p>firmwareBuildDate <em>(was buildDate)</em></p></td>
@@ -2072,7 +2095,7 @@ releases introduce new features.</p>
 <th class="head text-right"><p>Addr</p></th>
 <th class="head"><p>R/W</p></th>
 <th class="head"><p>Type</p></th>
-<th class="head"><p>Limits</p></th>
+<th class="head"><p>Value</p></th>
 <th class="head"><p>Description</p></th>
 <th class="head"><p>Status</p></th>
 </tr>
@@ -2203,7 +2226,7 @@ releases introduce new features.</p>
 <th class="head text-center"><p>Addr</p></th>
 <th class="head text-center"><p>R/W</p></th>
 <th class="head text-left"><p>Type</p></th>
-<th class="head text-left"><p>Limits</p></th>
+<th class="head text-left"><p>Value</p></th>
 <th class="head text-left"><p>Description</p></th>
 <th class="head text-left"><p>Status</p></th>
 </tr>
@@ -2258,15 +2281,56 @@ releases introduce new features.</p>
 <td class="text-left"><p><strong>Deprecated</strong></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>bridgeType</p></td>
-<td class="text-center"><p>0x804</p></td>
+<td class="text-center"><p>0x070</p></td>
 <td class="text-center"><p>RO</p></td>
-<td class="text-left"><p>uint8_t</p></td>
+<td class="text-left"><p>uint8</p></td>
 <td class="text-left"><p>-</p></td>
 <td class="text-left"><p>type of the mosfet driver</p></td>
 <td class="text-left"><p><strong>Deprecated</strong></p></td>
 </tr>
+<tr class="row-odd"><td class="text-left"><p>homingMode</p></td>
+<td class="text-center"><p>0x071</p></td>
+<td class="text-center"><p>RW</p></td>
+<td class="text-left"><p>uint8</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p>Homing Mode</p></td>
+<td class="text-left"><p><strong>Temporarily disabled</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>homingMaxTravel</p></td>
+<td class="text-center"><p>0x072</p></td>
+<td class="text-center"><p>RW</p></td>
+<td class="text-left"><p>float</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p>Max distance to travel looking for homing point</p></td>
+<td class="text-left"><p><strong>Temporarily disabled</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>homingVelocity</p></td>
+<td class="text-center"><p>0x073</p></td>
+<td class="text-center"><p>RW</p></td>
+<td class="text-left"><p>float</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p>Target velocity during homing</p></td>
+<td class="text-left"><p><strong>Temporarily disabled</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>homingTorque</p></td>
+<td class="text-center"><p>0x074</p></td>
+<td class="text-center"><p>RW</p></td>
+<td class="text-left"><p>float</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p>Max torque during homing</p></td>
+<td class="text-left"><p><strong>Temporarily disabled</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>homingStatus</p></td>
+<td class="text-center"><p>0x80F</p></td>
+<td class="text-center"><p>RO</p></td>
+<td class="text-left"><p>uint32</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p>Homing status bitfield</p></td>
+<td class="text-left"><p><strong>Temporarily disabled</strong></p></td>
+</tr>
 </tbody>
 </table>
+</div>
 </div>
 </section>
 </section>
