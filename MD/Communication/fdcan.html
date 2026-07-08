@@ -223,6 +223,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../CANdle-SDK/candlelib/CANdleModule.html">CANdle Module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../CANdle-SDK/candlelib/MDModule.html">MD Module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../CANdle-SDK/candlelib/PDSModule.html">PDS Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../CANdle-SDK/candlelib/MDCOModule.html">MDCO Module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../CANdle-SDK/candlelib/ResponseTimes.html">Response Time (Latency)</a></li>
 
 
@@ -599,7 +600,7 @@ with a CAN frame that also has the ID of <em>100</em></p>
 </div>
 <p>The communication stack is based on a register access using two frames - <strong>register read and
 register write</strong>. The list of <a class="reference internal" href="#registers"><span class="std std-ref">available registers</span></a> can be found at the end of this
-chapter. All fields are little-endian - least significant byte first, and all float fields are 4
+chapter. All fields are little-endian - least significant byte first, and all float32 fields are 4
 bytes long (32 bit) encoded in IEEE-754 standard.</p>
 <p>The MD will response with one of the three possible frame types, based on the hosts’ command:</p>
 <ul class="simple">
@@ -671,14 +672,14 @@ drive, would, have a length of 20 bytes, and look like the following:</p>
             <td> PADDING </td>
 		</tr>
 		<tr>
-			<td> 0x41 </td>
-            <td> 0x00 </td>
-            <td> 0x0063 </td>
-            <td> 0x00 00 00 00 </td>
-            <td> 0x0062 </td>
-            <td> 0x00 00 00 00 </td>
-            <td> 0x0064 </td>
-            <td> 0x00 00 00 00 </td>
+			<td> `0x41 </td>
+            <td> `0x00 </td>
+            <td> `0x0063 </td>
+            <td> `0x00 00 00 00 </td>
+            <td> `0x0062 </td>
+            <td> `0x00 00 00 00 </td>
+            <td> `0x0064 </td>
+            <td> `0x00 00 00 00 </td>
 		</tr>
 	</tbody>
 </table>
@@ -697,38 +698,38 @@ of the frame behaviours by their id:</p>
             <td> Description </td>
 		</tr>
 		<tr>
-			<td> 0x40 </td>
+			<td> `0x40 </td>
             <td> WRITE_REGISTER_LEGACY</td>
             <td> performs write operation, and makes the drive respond with <a href="#legacy-response">legacy response</a>. This is sometimes useful in high frequency control loops, to minimize number of frames exchanged. For frame contents, refer to <a href="write-register"> Write Register Frame </a>. </td>
 		</tr>
 		<tr>
-			<td> 0x41 </td>
+			<td> `0x41 </td>
             <td> READ_REGISTER</td>
             <td> performs read operation, and responds with state of the registers. Refer to  <a href="read-register"> Read Register Frame </a> </td>
 		</tr>
 		<tr>
-			<td> 0x42 </td>
+			<td> `0x42 </td>
             <td> WRITE_REGISTER</td>
             <td> performs write operation, and responds with state of the registers AFTER operation. Useful for verification of write operation. For more info, refer to <a href="write-register"> Write Register Frame </a> </td>
 		</tr>
 		<tr>
-			<td> 0x43 </td>
+			<td> `0x43 </td>
             <td> READ_REGISTER_CAN2.0 </td>
             <td> performs read operation, and responds with state of the registers. Works same as <a href="read-register"> Read Register Frame </a>, but is limited to 8 bytes and produces CAN2.0 compatible response. </td>
 		</tr>
 		<tr>
-			<td> 0x44 </td>
+			<td> `0x44 </td>
             <td> WRITE_REGISTER_CAN2.0 </td>
             <td> performs write operation, and responds with state of the registers AFTER operation. Useful for verification of write operation. Works same as <a href="write-register"> Write Register Frame </a>, but is limited to 8 bytes and produces CAN2.0 compatible response.</td>
 		</tr>
         <tr></tr>
 		<tr>
-			<td> 0xA0 </td>
+			<td> `0xA0 </td>
             <td> QUICK DATA (LEGACY Response) </td>
             <td> RESPONSE ONLY. A response produced as a result of some frames. Contains data, most commonly required in fast control loops - <a href="#legacy-response">more info here.</a> </td>
 		</tr>
 		<tr>
-			<td> 0xA1 </td>
+			<td> `0xA1 </td>
             <td> ERROR RESPONSE </td>
             <td> RESPONSE ONLY. A response produced as a result of failed register write or read attempt. Contains an error code and failed register id.</td>
 		</tr>
@@ -769,10 +770,10 @@ write access can be modified.</p>
 <p></p>
 <p>Params:</p>
 <ul class="simple">
-<li><p>regID (uint16_t) - first register ID (please see the end of this section)</p></li>
-<li><p>value (uint8_t/uint16_t/uint32_t/float/char[]) - first register value to be written</p></li>
-<li><p>regID (uint16_t) - second register ID (please see the end of this section)</p></li>
-<li><p>value (uint8_t/uint16_t/uint32_t/float/char[]) - second register value to be written</p></li>
+<li><p>regID (uint16) - first register ID (please see the end of this section)</p></li>
+<li><p>value (uint8/uint16_t/uint32_t/float/char[]) - first register value to be written</p></li>
+<li><p>regID (uint16) - second register ID (please see the end of this section)</p></li>
+<li><p>value (uint8/uint16_t/uint32_t/float/char[]) - second register value to be written</p></li>
 <li><p>… (up to 64 bytes total)</p></li>
 </ul>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -798,17 +799,17 @@ write access can be modified.</p>
             <td> (float) -7.4 </td>
 		</tr>
 		<tr>
-			<td> 0x42 </td>
-            <td> 0x00 </td>
-            <td> 0x0150 </td>
-            <td> 0x3E 80 00 00 </td>
-            <td> 0x0151 </td>
-            <td> 0xC0 EC CC CD </td>
+			<td> `0x42 </td>
+            <td> `0x00 </td>
+            <td> `0x0150 </td>
+            <td> `0x3E 80 00 00 </td>
+            <td> `0x0151 </td>
+            <td> `0xC0 EC CC CD </td>
 		</tr>
 	</tbody>
 </table>
 <p></p>
-Which in raw HEX is: 0x42 00 01 50 3E 80 00 00 01 51 C0 EC CC CD
+Which in raw HEX is: `0x42 00 01 50 3E 80 00 00 01 51 C0 EC CC CD
 <p class="sd-card-text">Response, send from MD to Host:</p>
 <table border="1" cellpadding="2" cellspacing="0"  class="gridlines sheet0" id="sheet0" style="float:center;text-align:center;font-size:11px ;width:100%">
 	<tbody>
@@ -829,17 +830,17 @@ Which in raw HEX is: 0x42 00 01 50 3E 80 00 00 01 51 C0 EC CC CD
             <td> (float) -7.4 </td>
 		</tr>
 		<tr>
-			<td> 0x42 </td>
-            <td> 0x00 </td>
-            <td> 0x0150 </td>
-            <td> 0x3E 80 00 00 </td>
-            <td> 0x0151 </td>
-            <td> 0xC0 EC CC CD </td>
+			<td> `0x42 </td>
+            <td> `0x00 </td>
+            <td> `0x0150 </td>
+            <td> `0x3E 80 00 00 </td>
+            <td> `0x0151 </td>
+            <td> `0xC0 EC CC CD </td>
 		</tr>
 	</tbody>
 </table>
 <p></p>
-Which in raw HEX is: 0x42 00 01 50 3E 80 00 00 01 51 C0 EC CC CD
+Which in raw HEX is: `0x42 00 01 50 3E 80 00 00 01 51 C0 EC CC CD
 </div>
 </details></section>
 <section id="read-register-frame">
@@ -874,7 +875,7 @@ master request should have the following form:</p>
 	</tbody>
 </table>
 <p></p>
-<p>When all read operations succeed the 0x00 fields will be filled with appropriate register data when
+<p>When all read operations succeed the `0x00 fields will be filled with appropriate register data when
 transmitted back to master by the MDxx controller.</p>
 <table border="1" cellpadding="2" cellspacing="0"  class="gridlines sheet0" id="sheet0" style="float:center;text-align:center;font-size:11px ;width:100%">
 	<tbody>
@@ -926,17 +927,17 @@ transmitted back to master by the MDxx controller.</p>
             <td> PADDING (4 bytes) </td>
 		</tr>
 		<tr>
-			<td> 0x41 </td>
-            <td> 0x00 </td>
-            <td> 0x0805 </td>
-            <td> 0x00 00  </td>
-            <td> 0x0062 </td>
-            <td> 0x00 00 00 00 </td>
+			<td> `0x41 </td>
+            <td> `0x00 </td>
+            <td> `0x0805 </td>
+            <td> `0x00 00  </td>
+            <td> `0x0062 </td>
+            <td> `0x00 00 00 00 </td>
 		</tr>
 	</tbody>
 </table>
 <p></p>
-Which in raw HEX is: 0x41 00 08 05 00 00 00 62 00 00 00 00
+Which in raw HEX is: `0x41 00 08 05 00 00 00 62 00 00 00 00
 <p class="sd-card-text">Response, send from MD to Host:</p>
 <table border="1" cellpadding="2" cellspacing="0"  class="gridlines sheet0" id="sheet0" style="float:center;text-align:center;font-size:11px ;width:100%">
 	<tbody>
@@ -957,17 +958,17 @@ Which in raw HEX is: 0x41 00 08 05 00 00 00 62 00 00 00 00
             <td> 16.74 (float) </td>
 		</tr>
 		<tr>
-			<td> 0x41 </td>
-            <td> 0x00 </td>
-            <td> 0x0805 </td>
-            <td> 0x80 00  </td>
-            <td> 0x0062 </td>
-            <td> 0x41 85 EB 85 </td>
+			<td> `0x41 </td>
+            <td> `0x00 </td>
+            <td> `0x0805 </td>
+            <td> `0x80 00  </td>
+            <td> `0x0062 </td>
+            <td> `0x41 85 EB 85 </td>
 		</tr>
 	</tbody>
 </table>
 <p></p>
-Which in raw HEX is: 0x41 00 08 05 80 00 00 62 41 85 EB 85
+Which in raw HEX is: `0x41 00 08 05 80 00 00 62 41 85 EB 85
 </div>
 </details></section>
 <section id="legacy-response">
@@ -999,19 +1000,19 @@ Which in raw HEX is: 0x41 00 08 05 80 00 00 62 41 85 EB 85
 		</tr>
     <tr>
 			<td>TYPE </td>
-			<td>uint8_t </td>
-			<td>uint16_t </td>
-			<td>uint8_t [*C] </td>
-      <td>float [rad] </td>
-      <td>float [rad/s] </td>
-      <td>float [Nm] </td>
-      <td>float [rad] </td>
-      <td>float [rad/s] </td>
+			<td>uint8 </td>
+			<td>uint16 </td>
+			<td>uint8 [*C] </td>
+      <td>float32 [rad] </td>
+      <td>float32 [rad/s] </td>
+      <td>float32 [Nm] </td>
+      <td>float32 [rad] </td>
+      <td>float32 [rad/s] </td>
 		</tr>
         <tr>
 			<td>VALUE </td>
 			<td>0x0A </td>
-			<td>0x0000 - 0xFFFF </td>
+			<td>0x0000 - `0xFFFF </td>
 			<td>0 - 255 </td>
       <td>- </td>
       <td>- </td>
@@ -1044,29 +1045,56 @@ response is produced at all, and error handling must happen via timeout handling
 		</tr>
     <tr>
 			<td>TYPE </td>
-			<td>uint8_t </td>
-			<td>int8_t </td>
-			<td>uint16_t [*C] </td>
+			<td>uint8 </td>
+			<td>int8 </td>
+			<td>uint16 [*C] </td>
 		</tr>
         <tr>
 			<td>VALUE </td>
 			<td>0xA1 </td>
 			<td>-255 - 0 </td>
-			<td>0x0000 - 0xFFFF</td>
+			<td>0x0000 - `0xFFFF</td>
 		</tr>
 	</tbody>
 </table>
 <p></p>
 <div class="small-table">
-Error codes are int8 based **negative** values.
-| Error Code | Error Name | Description |
-| --- | --- | -------|
-|  0 (0x00) | NONE | No error |  
-| -1 (0xFF) | DEPRECATED | Register deprecated - can be treated as warning. The call had no effect | 
-| -2 (0xFE) | INVALID | Frame composition invalid - usually incorrecy size of frame layout |  
-| -3 (0xFD) | UNKNOWN | Register ID unknown - The call has no effect |  
-| -4 (0xFC) | OUT_OF_RANGE | Register value was parsed, but was out of acceptable range. Refer to register table below. |  
-| -5 (0xFB) | ACCESS | Trying to write to read-only register, or read write-only register |  
+<p>Error codes are int8 based <strong>negative</strong> values.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error Code</p></th>
+<th class="head"><p>Error Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"> <span class="pre">0</span></code> (0x00)</p></td>
+<td><p>NONE</p></td>
+<td><p>No error</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-1</span></code> (0xFF)</p></td>
+<td><p>DEPRECATED</p></td>
+<td><p>Register deprecated - can be treated as warning. The call had no effect</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-2</span></code> (0xFE)</p></td>
+<td><p>INVALID</p></td>
+<td><p>Frame composition invalid - usually incorrecy size of frame layout</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-3</span></code> (0xFD)</p></td>
+<td><p>UNKNOWN</p></td>
+<td><p>Register ID unknown - The call has no effect</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-4</span></code> (0xFC)</p></td>
+<td><p>OUT_OF_RANGE</p></td>
+<td><p>Register value was parsed, but was out of acceptable range. Refer to register table below.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-5</span></code> (0xFB)</p></td>
+<td><p>ACCESS</p></td>
+<td><p>Trying to write to read-only register, or read write-only register</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -1087,15 +1115,15 @@ Error codes are int8 based **negative** values.
             <td> (u16) 65001 </td>
 		</tr>
 		<tr>
-			<td> 0x42 </td>
-            <td> 0x00 </td>
-            <td> 0x001D </td>
-            <td> 0xFDE9 </td>
+			<td> `0x42 </td>
+            <td> `0x00 </td>
+            <td> `0x001D </td>
+            <td> `0xFDE9 </td>
 		</tr>
 	</tbody>
 </table>
 <p></p>
-Which in raw HEX is: 0x42 00 1D 00 E9 FD
+Which in raw HEX is: `0x42 00 1D 00 E9 FD
 <p class="sd-card-text">Acceptable range here is 1 - 65000, so value <code class="docutils literal notranslate"><span class="pre">65001</span></code> is out of range, producing error response.</p>
 <p class="sd-card-text">Response, send from MD to Host:</p>
 <table border="1" cellpadding="2" cellspacing="0"  class="gridlines sheet0" id="sheet0" style="float:center;text-align:center;font-size:11px ;width:100%">
@@ -1111,14 +1139,14 @@ Which in raw HEX is: 0x42 00 1D 00 E9 FD
             <td> RegisterId </td>
 		</tr>
 		<tr>
-			<td> 0xA1 </td>
-            <td> 0xFC </td>
-            <td> 0x001D </td>
+			<td> `0xA1 </td>
+            <td> `0xFC </td>
+            <td> `0x001D </td>
 		</tr>
 	</tbody>
 </table>
 <p></p>
-Which in raw HEX is: 0xA1 FC 1D 00 
+Which in raw HEX is: `0xA1 FC 1D 00 
 </div>
 </details></section>
 </section>
@@ -1144,7 +1172,7 @@ releases introduce new features.</p>
 <tr class="row-even"><td class="text-left"><p>canId</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x001</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">uint32</span></code></p></td>
+<td class="text-left"><p>uint32</p></td>
 <td class="text-left"><p>10–2000</p></td>
 <td class="text-left"><p>FDCAN bus ID number</p></td>
 <td class="text-left"><p><strong>Active</strong></p></td>
@@ -1152,7 +1180,7 @@ releases introduce new features.</p>
 <tr class="row-odd"><td class="text-left"><p>canBaudrate</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x002</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">uint32</span></code></p></td>
+<td class="text-left"><p>uint32</p></td>
 <td class="text-left"><p>1M, 2M, 5M, 8M</p></td>
 <td class="text-left"><p>FDCAN bus baudrate</p></td>
 <td class="text-left"><p><strong>Active</strong></p></td>
@@ -1160,7 +1188,7 @@ releases introduce new features.</p>
 <tr class="row-even"><td class="text-left"><p>canWatchdog</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x003</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">uint16</span></code></p></td>
+<td class="text-left"><p>uint16</p></td>
 <td class="text-left"><p>0–2500 [ms]</p></td>
 <td class="text-left"><p>FDCAN watchdog timeout</p></td>
 <td class="text-left"><p><strong>Active</strong></p></td>
@@ -1168,7 +1196,7 @@ releases introduce new features.</p>
 <tr class="row-odd"><td class="text-left"><p>canTermination</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x004</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">uint8</span></code></p></td>
+<td class="text-left"><p>uint8</p></td>
 <td class="text-left"><p>0–1</p></td>
 <td class="text-left"><p>Toggle CAN bus termination (only on selected HW revisions)</p></td>
 <td class="text-left"><p>Deprecated</p></td>
@@ -1194,7 +1222,7 @@ releases introduce new features.</p>
 <tr class="row-even"><td class="text-left"><p>motorName</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x010</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">char[24]</span></code></p></td>
+<td class="text-left"><p>char[24]</p></td>
 <td class="text-left"><p>–</p></td>
 <td class="text-left"><p>User-defined motor name.</p></td>
 <td class="text-left"><p><strong>Active</strong></p></td>
@@ -1202,7 +1230,7 @@ releases introduce new features.</p>
 <tr class="row-odd"><td class="text-left"><p>motorPolePairs</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x011</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">uint32</span></code></p></td>
+<td class="text-left"><p>uint32</p></td>
 <td class="text-left"><p>2–225</p></td>
 <td class="text-left"><p>Number of motor pole pairs.</p></td>
 <td class="text-left"><p><strong>Active</strong></p></td>
@@ -1210,7 +1238,7 @@ releases introduce new features.</p>
 <tr class="row-even"><td class="text-left"><p>motorKt</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x012</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td class="text-left"><p>float32</p></td>
 <td class="text-left"><p>&gt; 0</p></td>
 <td class="text-left"><p>Motor torque constant (Nm/A).</p></td>
 <td class="text-left"><p><strong>Active</strong></p></td>
@@ -1218,15 +1246,15 @@ releases introduce new features.</p>
 <tr class="row-odd"><td class="text-left"><p>motorIMax</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x016</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
-<td class="text-left"><p>1–controller peak current</p></td>
-<td class="text-left"><p>Maximum allowable phase current.</p></td>
+<td class="text-left"><p>float32</p></td>
+<td class="text-left"><p>&gt; 0</p></td>
+<td class="text-left"><p>Maximum allowable phase current.<br>Clamped to value of <code class="docutils literal notranslate"><span class="pre">maxDriverCurrent</span></code> (0x701).</p></td>
 <td class="text-left"><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>motorGearRatio</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x017</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td class="text-left"><p>float32</p></td>
 <td class="text-left"><p>–</p></td>
 <td class="text-left"><p>Gear ratio. Values &lt; 1 indicate a reducer, values &gt; 1 indicate a multiplier (e.g. 2:1 reduction → 0.5).</p></td>
 <td class="text-left"><p><strong>Active</strong></p></td>
@@ -1234,23 +1262,23 @@ releases introduce new features.</p>
 <tr class="row-odd"><td class="text-left"><p>motorTorqueBandwidth</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x018</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">uint16</span></code></p></td>
+<td class="text-left"><p>uint16</p></td>
 <td class="text-left"><p>50–2500 Hz</p></td>
 <td class="text-left"><p>Desired torque control bandwidth.</p></td>
 <td class="text-left"><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>motorResistance</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x01B</span></code></p></td>
-<td class="text-center"><p>RO</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td class="text-center"><p><strong>RO</strong></p></td>
+<td class="text-left"><p>float32</p></td>
 <td class="text-left"><p>5 mΩ–20 Ω</p></td>
 <td class="text-left"><p>Measured motor phase resistance (d-axis).</p></td>
 <td class="text-left"><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>motorInductance</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x01C</span></code></p></td>
-<td class="text-center"><p>RO</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td class="text-center"><p><strong>RO</strong></p></td>
+<td class="text-left"><p>float32</p></td>
 <td class="text-left"><p>5 nH–100 mH</p></td>
 <td class="text-left"><p>Measured motor phase inductance (d-axis).</p></td>
 <td class="text-left"><p><strong>Active</strong></p></td>
@@ -1258,7 +1286,7 @@ releases introduce new features.</p>
 <tr class="row-even"><td class="text-left"><p>motorKV</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x01D</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">uint16</span></code></p></td>
+<td class="text-left"><p>uint16</p></td>
 <td class="text-left"><p>0 - 65000</p></td>
 <td class="text-left"><p>Motor speed constant (RPM/V).</p></td>
 <td class="text-left"><p><strong>Active</strong></p></td>
@@ -1266,15 +1294,15 @@ releases introduce new features.</p>
 <tr class="row-odd"><td class="text-left"><p>motorCalibrationMode</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x01E</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">uint8</span></code></p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td class="text-left"><p>uint8</p></td>
+<td class="text-left"><p>0 or 1</p></td>
 <td class="text-left"><p>Calibration mode (<code class="docutils literal notranslate"><span class="pre">FULL</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">NOPPDET</span> <span class="pre">=</span> <span class="pre">1</span></code>).</p></td>
 <td class="text-left"><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>motorThermistorType</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x01F</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">uint8</span></code></p></td>
+<td class="text-left"><p>uint8</p></td>
 <td class="text-left"><p>–</p></td>
 <td class="text-left"><p>Connected motor thermistor type.</p></td>
 <td class="text-left"><p><strong>Active</strong></p></td>
@@ -1298,7 +1326,7 @@ releases introduce new features.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>outputEncoder</p></td>
-<td class="text-right"><p>0x020</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x020</span></code></p></td>
 <td><p>RW</p></td>
 <td><p>uint8</p></td>
 <td><p>[0 - 11]</p></td>
@@ -1306,7 +1334,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>outputEncoderDir</p></td>
-<td class="text-right"><p>0x021</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x021</span></code></p></td>
 <td><p>RW</p></td>
 <td><p>float32</p></td>
 <td><p>-1 or 1</p></td>
@@ -1314,7 +1342,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p><em>outputEncoderDir (legacy)</em></p></td>
-<td class="text-right"><p>0x021</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x021</span></code></p></td>
 <td><p>RW</p></td>
 <td><p>int8</p></td>
 <td><p>-1 or 1</p></td>
@@ -1322,23 +1350,23 @@ releases introduce new features.</p>
 <td><p>up to v2.5.4</p></td>
 </tr>
 <tr class="row-odd"><td><p>outputEncoderVelocity</p></td>
-<td class="text-right"><p>0x023</p></td>
-<td><p>RO</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x023</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
 <td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Aux encoder velocity [rad/s], computed &#64; 5kHz</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>outputEncoderPosition</p></td>
-<td class="text-right"><p>0x024</p></td>
-<td><p>RO</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x024</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
 <td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Aux encoder position [rad], read &#64; 5kHz</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>outputEncoderMode</p></td>
-<td class="text-right"><p>0x025</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x025</span></code></p></td>
 <td><p>RW</p></td>
 <td><p>uint8</p></td>
 <td><p>[0;1;2;3;4]</p></td>
@@ -1346,7 +1374,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>outputEncoderCalibrationMode</p></td>
-<td class="text-right"><p>0x026</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x026</span></code></p></td>
 <td><p>RW</p></td>
 <td><p>uint8</p></td>
 <td><p>[0;1]</p></td>
@@ -1372,7 +1400,7 @@ releases introduce new features.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>mainEncoder (new)</p></td>
-<td class="text-right"><p>0x02A</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x02A</span></code></p></td>
 <td><p>RW</p></td>
 <td><p>uint8</p></td>
 <td><p>[0; 1; 3; 8; 9; 10;]</p></td>
@@ -1380,7 +1408,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong><br>from v3.0.0</p></td>
 </tr>
 <tr class="row-odd"><td><p>mainEncoderDir (new)</p></td>
-<td class="text-right"><p>0x02B</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x02B</span></code></p></td>
 <td><p>RW</p></td>
 <td><p>float32</p></td>
 <td><p>-1 or 1</p></td>
@@ -1406,33 +1434,33 @@ releases introduce new features.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>motorPosPidKp</p></td>
-<td class="text-right"><p>0x030</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x030</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Position PID proportional gain</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>motorPosPidKi</p></td>
-<td class="text-right"><p>0x031</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x031</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Position PID integral gain</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>motorPosPidKd</p></td>
-<td class="text-right"><p>0x032</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x032</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Position PID derivative gain</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>motorPosPidWindup</p></td>
-<td class="text-right"><p>0x034</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x034</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Position PID integral windup limit</p></td>
 <td><p><strong>Active</strong></p></td>
@@ -1446,33 +1474,33 @@ releases introduce new features.</p>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p>motorVelPidKp</p></td>
-<td class="text-right"><p>0x040</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x040</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Velocity PID proportional gain</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>motorVelPidKi</p></td>
-<td class="text-right"><p>0x041</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x041</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Velocity PID integral gain</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>motorVelPidKd</p></td>
-<td class="text-right"><p>0x042</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x042</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Velocity PID derivative gain</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>motorVelPidWindup</p></td>
-<td class="text-right"><p>0x044</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x044</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Velocity PID integral windup limit</p></td>
 <td><p><strong>Active</strong></p></td>
@@ -1486,17 +1514,17 @@ releases introduce new features.</p>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p>motorImpPidKp</p></td>
-<td class="text-right"><p>0x050</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x050</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Impedance PD proportional gain</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>motorImpPidKd</p></td>
-<td class="text-right"><p>0x051</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x051</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Impedance PD derivative gain</p></td>
 <td><p><strong>Active</strong></p></td>
@@ -1510,25 +1538,25 @@ releases introduce new features.</p>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p>velocity <em>(was mainEncoderVelocity)</em></p></td>
-<td class="text-right"><p>0x062</p></td>
-<td><p>RO</p></td>
-<td><p>float</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x062</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Actuator velocity in rad/s</p></td>
 <td><p>Active</p></td>
 </tr>
 <tr class="row-even"><td><p>position <em>(was mainEncoderPosition)</em></p></td>
-<td class="text-right"><p>0x063</p></td>
-<td><p>RO</p></td>
-<td><p>float</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x063</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Actuator position in rad</p></td>
 <td><p>Active</p></td>
 </tr>
 <tr class="row-odd"><td><p>torque <em>(was motorTorque)</em></p></td>
-<td class="text-right"><p>0x064</p></td>
-<td><p>RO</p></td>
-<td><p>float</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x064</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Actuator torque in Nm</p></td>
 <td><p>Active</p></td>
@@ -1542,25 +1570,25 @@ releases introduce new features.</p>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p>targetPosition</p></td>
-<td class="text-right"><p>0x150</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x150</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Sets target position in rad</p></td>
 <td><p>Active</p></td>
 </tr>
 <tr class="row-even"><td><p>targetVelocity</p></td>
-<td class="text-right"><p>0x151</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x151</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Sets target velocity in rad/s</p></td>
 <td><p>Active</p></td>
 </tr>
 <tr class="row-odd"><td><p>targetTorque</p></td>
-<td class="text-right"><p>0x152</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x152</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Sets target torque in Nm</p></td>
 <td><p>Active</p></td>
@@ -1584,7 +1612,7 @@ releases introduce new features.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>runSaveCmd</p></td>
-<td class="text-right"><p>0x080</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x080</span></code></p></td>
 <td><p>WO</p></td>
 <td><p>uint8</p></td>
 <td><p>1 to run</p></td>
@@ -1592,7 +1620,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>runTestMainEncoderCmd</p></td>
-<td class="text-right"><p>0x081</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x081</span></code></p></td>
 <td><p>WO</p></td>
 <td><p>uint8</p></td>
 <td><p>1 to run</p></td>
@@ -1600,7 +1628,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>runTestOutputEncoderCmd</p></td>
-<td class="text-right"><p>0x082</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x082</span></code></p></td>
 <td><p>WO</p></td>
 <td><p>uint8</p></td>
 <td><p>1 to run</p></td>
@@ -1608,7 +1636,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>runCalibrateCmd</p></td>
-<td class="text-right"><p>0x083</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x083</span></code></p></td>
 <td><p>WO</p></td>
 <td><p>uint8</p></td>
 <td><p>1 to run</p></td>
@@ -1616,7 +1644,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>runCalibrateOutputEncoderCmd</p></td>
-<td class="text-right"><p>0x084</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x084</span></code></p></td>
 <td><p>WO</p></td>
 <td><p>uint8</p></td>
 <td><p>1 to run</p></td>
@@ -1624,7 +1652,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>runCalibratePiGains</p></td>
-<td class="text-right"><p>0x085</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x085</span></code></p></td>
 <td><p>WO</p></td>
 <td><p>uint8</p></td>
 <td><p>1 to run</p></td>
@@ -1632,7 +1660,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>runRestoreFactoryConfig</p></td>
-<td class="text-right"><p>0x087</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x087</span></code></p></td>
 <td><p>WO</p></td>
 <td><p>uint8</p></td>
 <td><p>1 to run</p></td>
@@ -1640,7 +1668,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>runReset</p></td>
-<td class="text-right"><p>0x088</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x088</span></code></p></td>
 <td><p>WO</p></td>
 <td><p>uint8</p></td>
 <td><p>1 to run</p></td>
@@ -1648,7 +1676,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>runClearWarnings</p></td>
-<td class="text-right"><p>0x089</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x089</span></code></p></td>
 <td><p>WO</p></td>
 <td><p>uint8</p></td>
 <td><p>1 to run</p></td>
@@ -1656,7 +1684,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>runClearErrors</p></td>
-<td class="text-right"><p>0x08A</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x08A</span></code></p></td>
 <td><p>WO</p></td>
 <td><p>uint8</p></td>
 <td><p>1 to run</p></td>
@@ -1664,7 +1692,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>runBlink</p></td>
-<td class="text-right"><p>0x08B</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x08B</span></code></p></td>
 <td><p>WO</p></td>
 <td><p>uint8</p></td>
 <td><p>1 to run</p></td>
@@ -1672,7 +1700,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>runZero</p></td>
-<td class="text-right"><p>0x08C</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x08C</span></code></p></td>
 <td><p>WO</p></td>
 <td><p>uint8</p></td>
 <td><p>1 to run</p></td>
@@ -1680,7 +1708,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>runCanReinit</p></td>
-<td class="text-right"><p>0x08D</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x08D</span></code></p></td>
 <td><p>WO</p></td>
 <td><p>uint8</p></td>
 <td><p>1 to run</p></td>
@@ -1706,49 +1734,49 @@ releases introduce new features.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>calOutputEncoderStdDev</p></td>
-<td class="text-right"><p>0x100</p></td>
-<td><p>RO</p></td>
-<td><p>float</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x100</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Aux encoder test result (standard deviation)</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>calOutputEncoderMinE</p></td>
-<td class="text-right"><p>0x101</p></td>
-<td><p>RO</p></td>
-<td><p>float</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x101</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Aux encoder test result (min error)</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>calOutputEncoderMaxE</p></td>
-<td class="text-right"><p>0x102</p></td>
-<td><p>RO</p></td>
-<td><p>float</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x102</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Aux encoder test result (max error)</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>calMainEncoderStdDev</p></td>
-<td class="text-right"><p>0x103</p></td>
-<td><p>RO</p></td>
-<td><p>float</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x103</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Main encoder test result (standard deviation)</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>calMainEncoderMinE</p></td>
-<td class="text-right"><p>0x104</p></td>
-<td><p>RO</p></td>
-<td><p>float</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x104</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Main encoder test result (min error)</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>calMainEncoderMaxE</p></td>
-<td class="text-right"><p>0x105</p></td>
-<td><p>RO</p></td>
-<td><p>float</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x105</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Main encoder test result (max error)</p></td>
 <td><p><strong>Active</strong></p></td>
@@ -1772,49 +1800,49 @@ releases introduce new features.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>maxPosition <em>(was positionLimitMax)</em></p></td>
-<td class="text-right"><p>0x110</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x110</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>&gt; 0</p></td>
 <td><p>Maximum valid position</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>minPosition <em>(was positionLimitMin)</em></p></td>
-<td class="text-right"><p>0x111</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x111</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>&lt; 0</p></td>
 <td><p>Minimum valid position</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>maxTorque</p></td>
-<td class="text-right"><p>0x112</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x112</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>&gt; 0</p></td>
 <td><p>Maximum torque</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>maxVelocity</p></td>
-<td class="text-right"><p>0x113</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x113</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>&gt; 0</p></td>
 <td><p>Maximum velocity</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>maxAcceleration</p></td>
-<td class="text-right"><p>0x114</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x114</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>&gt; 0</p></td>
 <td><p>Maximum acceleration</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>maxDeceleration</p></td>
-<td class="text-right"><p>0x115</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x115</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>&gt; 0</p></td>
 <td><p>Maximum deceleration</p></td>
 <td><p><strong>Active</strong></p></td>
@@ -1838,49 +1866,49 @@ releases introduce new features.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>profileVelocity</p></td>
-<td class="text-right"><p>0x120</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x120</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>up to v2.5.4 - profile velocity<br><strong>from v3.0.0 - replaced by targetVelocity</strong></p></td>
 <td><p><em>Discontinued</em><br>from v3.0.0</p></td>
 </tr>
 <tr class="row-odd"><td><p>profileAcceleration</p></td>
-<td class="text-right"><p>0x121</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x121</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Profile acceleration</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>profileDeceleration</p></td>
-<td class="text-right"><p>0x122</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x122</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Profile deceleration</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>quickStopDeceleration</p></td>
-<td class="text-right"><p>0x123</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x123</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Quick stop deceleration in case of a non-critical error</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>positionWindow</p></td>
-<td class="text-right"><p>0x124</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x124</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Position window within position is considered to be reached</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>velocityWindow</p></td>
-<td class="text-right"><p>0x125</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x125</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Velocity window within velocity is considered to be reached</p></td>
 <td><p><strong>Active</strong></p></td>
@@ -1904,23 +1932,23 @@ releases introduce new features.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>motionModeCommand</p></td>
-<td class="text-right"><p>0x140</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x140</span></code></p></td>
 <td><p>WO</p></td>
 <td><p>uint8</p></td>
 <td><p>-</p></td>
-<td><p>IDLE=0x00,<br>POSITION_PID=0x01,<br>VELOCITY_PID=0x02,<br>RAW_TORQUE=0x03,<br>IMPEDANCE=0x04,<br>POSITION_PROFILE=0x07,<br>VELOCITY_PROFILE=0x08</p></td>
+<td><p>IDLE=0x00,<br>POSITION_PID=0x01,<br>VELOCITY_PID=0x02,<br>RAWORQUE=0x03,<br>IMPEDANCE=0x04,<br>POSITION_PROFILE=0x07,<br>VELOCITY_PROFILE=0x08</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>motionModeStatus</p></td>
-<td class="text-right"><p>0x141</p></td>
-<td><p>RO</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x141</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
 <td><p>uint8</p></td>
 <td><p>-</p></td>
 <td><p>Shows the currently set motion mode</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>state</p></td>
-<td class="text-right"><p>0x142</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x142</span></code></p></td>
 <td><p>RW</p></td>
 <td><p>uint16</p></td>
 <td><p>-</p></td>
@@ -1946,7 +1974,7 @@ releases introduce new features.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>userGpioConfiguration</p></td>
-<td class="text-right"><p>0x160</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x160</span></code></p></td>
 <td><p>RW</p></td>
 <td><p>uint8</p></td>
 <td><p>-</p></td>
@@ -1954,8 +1982,8 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>userGpioState</p></td>
-<td class="text-right"><p>0x161</p></td>
-<td><p>RO</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x161</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
 <td><p>uint16</p></td>
 <td><p>0 or 1</p></td>
 <td><p>GPIO input state</p></td>
@@ -1980,31 +2008,31 @@ releases introduce new features.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>shuntResistance</p></td>
-<td class="text-right"><p>0x700</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x700</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>&gt; 0</p></td>
 <td><p>Current sense resistor value. Setting this register to a value that is not coherent with the hardware may damage the controller. In this cases warranty is not respected.</p></td>
 <td><p><em>Outdated</em><br>from v3.0.0</p></td>
 </tr>
 <tr class="row-odd"><td><p>shuntResistance</p></td>
-<td class="text-right"><p>0x700</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x700</span></code></p></td>
 <td><p><strong>RO</strong></p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>&gt; 0</p></td>
 <td><p>Current sense resistance.</p></td>
 <td><p><strong>Active</strong><br>from v3.0.0</p></td>
 </tr>
 <tr class="row-even"><td><p>maxDriverCurrent</p></td>
-<td class="text-right"><p>0x701</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x701</span></code></p></td>
 <td><p><strong>RO</strong></p></td>
-<td><p>float</p></td>
+<td><p>float32</p></td>
 <td><p>&gt; 0</p></td>
 <td><p>Max measurable (peak) current.</p></td>
 <td><p><strong>Active</strong><br>from v3.0.0</p></td>
 </tr>
 <tr class="row-odd"><td><p>productionDate</p></td>
-<td class="text-right"><p>0x7FB</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x7FB</span></code></p></td>
 <td><p><strong>RO</strong></p></td>
 <td><p>uint32</p></td>
 <td><p>&gt; 0</p></td>
@@ -2012,7 +2040,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong><br>from v3.0.0</p></td>
 </tr>
 <tr class="row-even"><td><p>productionBatch</p></td>
-<td class="text-right"><p>0x7FC</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x7FC</span></code></p></td>
 <td><p><strong>RO</strong></p></td>
 <td><p>uint32</p></td>
 <td><p>&gt; 0</p></td>
@@ -2020,7 +2048,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong><br>from v3.0.0</p></td>
 </tr>
 <tr class="row-odd"><td><p>productionUID</p></td>
-<td class="text-right"><p>0x7FD</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x7FD</span></code></p></td>
 <td><p><strong>RO</strong></p></td>
 <td><p>uint32</p></td>
 <td><p>&gt; 0</p></td>
@@ -2028,7 +2056,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong><br>from v3.0.0</p></td>
 </tr>
 <tr class="row-even"><td><p>hardwareRevision</p></td>
-<td class="text-right"><p>0x7FE</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x7FE</span></code></p></td>
 <td><p><strong>RO</strong></p></td>
 <td><p>uint32</p></td>
 <td><p>&gt; 0</p></td>
@@ -2036,7 +2064,7 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong><br>from v3.0.0</p></td>
 </tr>
 <tr class="row-odd"><td><p>hardwareType</p></td>
-<td class="text-right"><p>0x7FF</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x7FF</span></code></p></td>
 <td><p><strong>RO</strong></p></td>
 <td><p>uint32</p></td>
 <td><p>&gt; 0</p></td>
@@ -2044,40 +2072,40 @@ releases introduce new features.</p>
 <td><p><strong>Active</strong><br>from v3.0.0</p></td>
 </tr>
 <tr class="row-even"><td><p>firmwareBuildDate <em>(was buildDate)</em></p></td>
-<td class="text-right"><p>0x800</p></td>
-<td><p>RO</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x800</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
 <td><p>uint32</p></td>
 <td><p>-</p></td>
 <td><p>Firmware build date, as ddmmyy number</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>firmwareHash <em>(was commitHash)</em></p></td>
-<td class="text-right"><p>0x801</p></td>
-<td><p>RO</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x801</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
 <td><p>char[8]</p></td>
 <td><p>-</p></td>
 <td><p>Firmware hash</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>firmwareVersion</p></td>
-<td class="text-right"><p>0x802</p></td>
-<td><p>RO</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x802</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
 <td><p>uint32</p></td>
 <td><p>-</p></td>
 <td><p>Firmware Version</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>hardwareVersion</p></td>
-<td class="text-right"><p>0x803</p></td>
-<td><p>RO</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x803</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
 <td><p>uint8</p></td>
 <td><p>-</p></td>
 <td><p>Hardware Version</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>dcBusVoltage</p></td>
-<td class="text-right"><p>0x811</p></td>
-<td><p>RO</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x811</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
 <td><p>float32</p></td>
 <td><p>0 - 100V</p></td>
 <td><p>Voltage measured on the DC bus</p></td>
@@ -2102,33 +2130,33 @@ releases introduce new features.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>quickStatus</p></td>
-<td class="text-right"><p>0x805</p></td>
-<td><p>RO</p></td>
-<td><p>uint16_t</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x805</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>uint16</p></td>
 <td><p>-</p></td>
 <td><p>Quick status vector</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>mosfetTemperature</p></td>
-<td class="text-right"><p>0x806</p></td>
-<td><p>RO</p></td>
-<td><p>float</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x806</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Driver temperature</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>motorTemperature</p></td>
-<td class="text-right"><p>0x807</p></td>
-<td><p>RO</p></td>
-<td><p>float</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x807</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>float32</p></td>
 <td><p>-</p></td>
 <td><p>Motor temperature (if thermistor is mounted)</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>motorShutdownTemp</p></td>
-<td class="text-right"><p>0x808</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x808</span></code></p></td>
 <td><p>RW</p></td>
-<td><p>uint8_t</p></td>
+<td><p>uint8</p></td>
 <td><p>-</p></td>
 <td><p>Temperature at which the MD will enter IDLE mode</p></td>
 <td><p><strong>Active</strong></p></td>
@@ -2142,73 +2170,73 @@ releases introduce new features.</p>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p>mainEncoderStatus <em>(was mainEncoderErrors)</em></p></td>
-<td class="text-right"><p>0x809</p></td>
-<td><p>RO</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x809</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
 <td><p>uint32</p></td>
 <td><p>-</p></td>
 <td><p>Main encoder status</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>auxEncoderStatus <em>(was outputEncoderErrors)</em></p></td>
-<td class="text-right"><p>0x80A</p></td>
-<td><p>RO</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x80A</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
 <td><p>uint32</p></td>
 <td><p>-</p></td>
 <td><p>Aux encoder status</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>calibrationStatus <em>(was calibrationErrors)</em></p></td>
-<td class="text-right"><p>0x80B</p></td>
-<td><p>RO</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x80B</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
 <td><p>uint32</p></td>
 <td><p>-</p></td>
 <td><p>Calibration status</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>bridgeStatus <em>(was bridgeErrors)</em></p></td>
-<td class="text-right"><p>0x80C</p></td>
-<td><p>RO</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x80C</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
 <td><p>uint32</p></td>
 <td><p>-</p></td>
 <td><p>Bridge status</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>hardwareStatus <em>(was hardwareErrors)</em></p></td>
-<td class="text-right"><p>0x80D</p></td>
-<td><p>RO</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x80D</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
 <td><p>uint32</p></td>
 <td><p>-</p></td>
 <td><p>Hardware status</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>communicationStatus <em>(was communicationErrors)</em></p></td>
-<td class="text-right"><p>0x80E</p></td>
-<td><p>RO</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x80E</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
 <td><p>uint32</p></td>
 <td><p>-</p></td>
 <td><p>Communication status</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>motionStatus <em>(was motionErrors)</em></p></td>
-<td class="text-right"><p>0x810</p></td>
-<td><p>RO</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x810</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
 <td><p>uint32</p></td>
 <td><p>-</p></td>
 <td><p>Motion status</p></td>
 <td><p><strong>Active</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>miscStatus</p></td>
-<td class="text-right"><p>0x812</p></td>
-<td><p>RO</p></td>
-<td><p>uint32_t</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x812</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>uint32</p></td>
 <td><p>-</p></td>
 <td><p>Misc status</p></td>
 <td><p><strong>Active</strong> <br>from v3.0.0</p></td>
 </tr>
 <tr class="row-odd"><td><p>configStatus</p></td>
-<td class="text-right"><p>0x813</p></td>
-<td><p>RO</p></td>
-<td><p>uint32_t</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0x813</span></code></p></td>
+<td><p><strong>RO</strong></p></td>
+<td><p>uint32</p></td>
 <td><p>-</p></td>
 <td><p>Config status</p></td>
 <td><p><strong>Active</strong> <br>from v3.0.0</p></td>
@@ -2235,7 +2263,7 @@ releases introduce new features.</p>
 <tr class="row-even"><td class="text-left"><p>motorKt_a</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x013</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td class="text-left"><p>float32</p></td>
 <td class="text-left"><p>&gt; 0</p></td>
 <td class="text-left"><p>Optional phase A torque constant.</p></td>
 <td class="text-left"><p><strong>Deprecated</strong></p></td>
@@ -2243,7 +2271,7 @@ releases introduce new features.</p>
 <tr class="row-odd"><td class="text-left"><p>motorKt_b</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x014</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td class="text-left"><p>float32</p></td>
 <td class="text-left"><p>&gt; 0</p></td>
 <td class="text-left"><p>Optional phase B torque constant.</p></td>
 <td class="text-left"><p><strong>Deprecated</strong></p></td>
@@ -2251,29 +2279,29 @@ releases introduce new features.</p>
 <tr class="row-even"><td class="text-left"><p>motorKt_c</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x015</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td class="text-left"><p>float32</p></td>
 <td class="text-left"><p>&gt; 0</p></td>
 <td class="text-left"><p>Optional phase C torque constant.</p></td>
 <td class="text-left"><p><strong>Deprecated</strong></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>motorFriction</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x019</span></code></p></td>
-<td class="text-center"><p>RO</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float32</span></code></p></td>
+<td class="text-center"><p><strong>RO</strong></p></td>
+<td class="text-left"><p>float32</p></td>
 <td class="text-left"><p>–</p></td>
 <td class="text-left"><p>Actuator dynamic friction</p></td>
 <td class="text-left"><p><strong>Temporarily disabled</strong></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>motorStiction</p></td>
 <td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x01A</span></code></p></td>
-<td class="text-center"><p>RO</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float32</span></code></p></td>
+<td class="text-center"><p><strong>RO</strong></p></td>
+<td class="text-left"><p>float32</p></td>
 <td class="text-left"><p>–</p></td>
 <td class="text-left"><p>Actuator static friction</p></td>
 <td class="text-left"><p><strong>Temporarily disabled</strong></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>outputEncoderDefaultBaud</p></td>
-<td class="text-center"><p>0x022</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x022</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
 <td class="text-left"><p>uint32</p></td>
 <td class="text-left"><p>115200</p></td>
@@ -2281,15 +2309,15 @@ releases introduce new features.</p>
 <td class="text-left"><p><strong>Deprecated</strong></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>bridgeType</p></td>
-<td class="text-center"><p>0x070</p></td>
-<td class="text-center"><p>RO</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x070</span></code></p></td>
+<td class="text-center"><p><strong>RO</strong></p></td>
 <td class="text-left"><p>uint8</p></td>
 <td class="text-left"><p>-</p></td>
 <td class="text-left"><p>type of the mosfet driver</p></td>
 <td class="text-left"><p><strong>Deprecated</strong></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>homingMode</p></td>
-<td class="text-center"><p>0x071</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x071</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
 <td class="text-left"><p>uint8</p></td>
 <td class="text-left"><p>-</p></td>
@@ -2297,32 +2325,32 @@ releases introduce new features.</p>
 <td class="text-left"><p><strong>Temporarily disabled</strong></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>homingMaxTravel</p></td>
-<td class="text-center"><p>0x072</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x072</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p>float</p></td>
+<td class="text-left"><p>float32</p></td>
 <td class="text-left"><p>-</p></td>
 <td class="text-left"><p>Max distance to travel looking for homing point</p></td>
 <td class="text-left"><p><strong>Temporarily disabled</strong></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>homingVelocity</p></td>
-<td class="text-center"><p>0x073</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x073</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p>float</p></td>
+<td class="text-left"><p>float32</p></td>
 <td class="text-left"><p>-</p></td>
 <td class="text-left"><p>Target velocity during homing</p></td>
 <td class="text-left"><p><strong>Temporarily disabled</strong></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>homingTorque</p></td>
-<td class="text-center"><p>0x074</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x074</span></code></p></td>
 <td class="text-center"><p>RW</p></td>
-<td class="text-left"><p>float</p></td>
+<td class="text-left"><p>float32</p></td>
 <td class="text-left"><p>-</p></td>
 <td class="text-left"><p>Max torque during homing</p></td>
 <td class="text-left"><p><strong>Temporarily disabled</strong></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>homingStatus</p></td>
-<td class="text-center"><p>0x80F</p></td>
-<td class="text-center"><p>RO</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0x80F</span></code></p></td>
+<td class="text-center"><p><strong>RO</strong></p></td>
 <td class="text-left"><p>uint32</p></td>
 <td class="text-left"><p>-</p></td>
 <td class="text-left"><p>Homing status bitfield</p></td>
