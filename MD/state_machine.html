@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Encoders &#8212; MAB Ecosystem</title>
+    <title>State Machine &#8212; MAB Ecosystem</title>
   
   
   
@@ -59,12 +59,12 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'MD/encoders';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'MD/state_machine';</script>
     <link rel="icon" href="../_static/logo32x32.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Brake System" href="brakes.html" />
-    <link rel="prev" title="MD80 60V" href="MD80HV.html" />
+    <link rel="next" title="Motion modes" href="motion.html" />
+    <link rel="prev" title="Safety" href="safety.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -186,7 +186,7 @@
 <li class="toctree-l2"><a class="reference internal" href="MD80.html">MD80</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MD20.html">MD20</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MD80HV.html">MD80 60V</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Encoders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="encoders.html">Encoders</a></li>
 
 
 
@@ -194,7 +194,7 @@
 <li class="toctree-l2"><a class="reference internal" href="brakes.html">Brakes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="measurements.html">Measurements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="safety.html">Safety</a></li>
-<li class="toctree-l2"><a class="reference internal" href="state_machine.html">State Machine</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">State Machine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="motion.html">Motion Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="config_calibration.html">Configuration &amp; Calibration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="status_utility.html">Status &amp; Utilities</a></li>
@@ -383,7 +383,7 @@
       
       
       
-      <li><a href="https://github.com/mabrobotics/mab-documentation-devel-deploy/issues/new?title=Issue%20on%20page%20%2FMD/encoders.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/mabrobotics/mab-documentation-devel-deploy/issues/new?title=Issue%20on%20page%20%2FMD/state_machine.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -413,7 +413,7 @@
       
       
       
-      <li><a href="../_sources/MD/encoders.md" target="_blank"
+      <li><a href="../_sources/MD/state_machine.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -497,7 +497,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Encoders</h1>
+    <h1>State Machine</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -507,23 +507,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Encoders</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-encoders">Supported Encoders</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#onboard-encoder">Onboard Encoder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#md-protocol-model">MD Protocol model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-state-machine-model">Full State Machine model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#x6041-statusword">0x6041 – Statusword</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#auxiliary-aux-encoders">Auxiliary (Aux) Encoders</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#me-am">ME-am</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cm-encoder">CM encoder</a></li>
 </ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rls-precision-encoders">RLS Precision Encoders</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#aux-encoder-modes">Aux Encoder Modes</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#me-am-mechanical-mounting">ME-am - Mechanical mounting</a></li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -534,248 +524,307 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="encoders">
-<span id="aux-encoders"></span><h1>Encoders<a class="headerlink" href="#encoders" title="Link to this heading">#</a></h1>
-<p>Encoders are rotary position sensors, used for measuring motor/actuator rotor angle with respect to the stator.
-Encoders can be either incremental or absolute - MD only work with selected absolute encoders.</p>
-<p>MD motor controllers can work with up to 2 rotary position encoders at a time. There are two roles, the encoder can have:</p>
-<ul class="simple">
-<li><p><strong>Main Encoder</strong> - used for <strong>motor commutation</strong> and motion control by default,</p></li>
-<li><p><strong>Auxiliary (Aux) Encoder</strong> - used mostly getting absolute actuator position (after gearbox), optionally can
-be used for motion control, or not used by driver (can be read via register by host).</p></li>
-</ul>
-<p><strong>Main Encoder</strong> is required for operation. The MD does not currently support sensorless control mode.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="supported-encoders">
-<h1>Supported Encoders<a class="headerlink" href="#supported-encoders" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="state-machine">
+<span id="md-state-machine"></span><h1>State Machine<a class="headerlink" href="#state-machine" title="Link to this heading">#</a></h1>
+<p>Internal state machine of the MD driver is compliant with industrial CIA402 standard, and allows for precise
+state control and validation.</p>
+<p>However for most applications, such level of control can introduce complication rather than functionality,
+thus we will first describe simplified model, and later full model, for those who require it.</p>
+<section id="md-protocol-model">
+<h2>MD Protocol model<a class="headerlink" href="#md-protocol-model" title="Link to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section is applicable while operating MD using MD Protocol.</p>
+</div>
+<p>While internally the state machine is transitioning though states as CIA402 requires, most of those
+changes happen in a span of micro-seconds, and are not very important from user perspective.</p>
+<figure class="align-center">
+<img alt="../_images/state_machine_simple.png" class="no-scaled-link" src="../_images/state_machine_simple.png" />
+</figure>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>Encoder type</p></th>
-<th class="head"><p>Supported Role</p></th>
-<th class="head"><p>Notes</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ONBOARD</span></code></p></td>
-<td><p><strong>Main</strong> / Aux</p></td>
-<td><p>Mounted on every MD</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://www.mabrobotics.pl/product-page/me-am">ME_AM On-axis</a></p></td>
-<td><p><strong>Main</strong> / Aux</p></td>
-<td><p>Present in some of MA-x actuators</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://www.mabrobotics.pl/product-page/me-am">ME_AM Off-axis</a></p></td>
-<td><p>Aux</p></td>
-<td><p>Present in some of MA-x actuators</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://www.mabrobotics.pl/product-page/rls-aksim-2">RLS_17B_RS422</a></p></td>
-<td><p><strong>Main</strong> / Aux</p></td>
-<td><p>High precision position sensor. Present in some of MA-x actuators, mainly hollow shaft (HS) series.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CM_OFFAXIS</span></code></p></td>
-<td><p>Aux</p></td>
-<td><p>Present in some of the CubeMars actuators</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://www.mabrobotics.pl/product-page/rls-aksim-2">RLS_17B_SPI</a></p></td>
-<td><p><strong>Main</strong> / Aux</p></td>
-<td><p>High precision position sensor variant. Present in some MA-x actuators</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">RLS_ORBIS_RS422</span></code></p></td>
-<td><p><strong>Main</strong> / Aux</p></td>
-<td><p>-</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CE300</span></code></p></td>
-<td><p>Aux</p></td>
-<td><p>-</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Custom encoder support.</p>
-<p>If you would like to use specific position sensor that is not currently supported, we are open to introducing
-it to MD Ecosystem. Please contact us at: <code class="docutils literal notranslate"><span class="pre">contact&#64;mabrobotics.pl</span></code>.</p>
-</div>
-<section id="onboard-encoder">
-<h2>Onboard Encoder<a class="headerlink" href="#onboard-encoder" title="Link to this heading">#</a></h2>
-<p>Each MD unit, features a 14-bit absolute encoder on the PCB. The Encoder is mounted on the bottom layer
-in the middle of the driver - in the center point of all mounting holes. This allows for mounting the
-driver right behind the motor, creating a compact and power-dense actuator with minimal moving parts.</p>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="auxiliary-aux-encoders">
-<h1>Auxiliary (Aux) Encoders<a class="headerlink" href="#auxiliary-aux-encoders" title="Link to this heading">#</a></h1>
-<figure class="align-center">
-<img alt="candle" class="no-scaled-link" src="../_images/encoders.jpg" />
-</figure>
-<p>If actuator has a gearbox, <strong>Main encoder</strong> (measuring motors’ rotor angle) cannot determine output shaft
-position on startup. This is where <strong>Aux Encoder</strong> can be used to supplement the driver with absolute
-angle measurement <em>after</em> gearbox.
-Thanks to this, the actuators can keep track of its position between startups, which is especially
-useful while starting up mobile robots.</p>
-<section id="me-am">
-<h2>ME-am<a class="headerlink" href="#me-am" title="Link to this heading">#</a></h2>
-<p><strong>ME-am</strong> is a simple, reliable and cost-effective solution for adding additional position sensor to
-MD based actuators. ME-am can work in one of two placement configurations:</p>
-<ul class="simple">
-<li><p>ME-am placed axially on the output shaft with a regular diametrically magnetized magnet</p></li>
-</ul>
-<figure class="align-center">
-<img alt="../_images/output_encoder_axial.jpg" class="no-scaled-link" src="../_images/output_encoder_axial.jpg" style="width: 300px;" />
-</figure>
-<ul class="simple">
-<li><p>ME-am placed non-axially together with a <strong>diametrically magnetized</strong> ring magnet</p></li>
-</ul>
-<figure class="align-center">
-<img alt="../_images/output_encoder_offaxis.jpg" class="no-scaled-link" src="../_images/output_encoder_offaxis.jpg" style="width: 300px;" />
-</figure>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>ME-am</strong> encoder can be connected to MD20 and MD80 using AUX1 (6-pin) connector.</p>
-</div>
-<section id="cm-encoder">
-<h3>CM encoder<a class="headerlink" href="#cm-encoder" title="Link to this heading">#</a></h3>
-<p>MD drivers can also work with encoders supplied in many CubeMars actuators (such as AK10-9). These
-encoders are usually already mounted inside of the actuator. These encoders are perfectly fine to
-determine actuator on startup, but due to their noisy nature, are not recommended to be used for
-motion control.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>CM encoder</strong> can be connected to MD20 and MD80 using AUX1 (6-pin) connector.</p>
-</div>
-</section>
-</section>
-<section id="rls-precision-encoders">
-<h2><a class="reference external" href="https://www.rls.si/">RLS</a> Precision Encoders<a class="headerlink" href="#rls-precision-encoders" title="Link to this heading">#</a></h2>
-<figure class="align-center">
-<img alt="../_images/rls.jpg" class="no-scaled-link" src="../_images/rls.jpg" />
-</figure>
-<p>While Onboard and ME-am encoders provide sufficient precision for most general-purpose applications,
-there are situations where high-precision, through hole (hollow shaft) encoder is required. For those
-cases we worked together with <a class="reference external" href="https://www.rls.si/">RLS</a> to provide easy way to connect MD to a few of
-<a class="reference external" href="https://www.mabrobotics.pl/product-page/rls-aksim-2">https://www.mabrobotics.pl/product-page/rls-aksim-2</a> and RLS Orbis encoders.
-We support <a class="reference external" href="https://www.mabrobotics.pl/product-page/rls-aksim-2">RLS AksIM 2</a> with RS-422 interface
-with the sizes ranging from 22 to 80mm.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p><strong>RLS AksIM2 and Orbis with RS-422 interface</strong> can be connected to MD20 and MD80 using AUX2 (10-pin) connector.</p>
-<p><b><font color="#AA0000">RS-422 is on-demand feature of MD drivers, and by default it is not available
-on the board. </font></b>
-Contact MAB Robotics support at <code class="docutils literal notranslate"><span class="pre">support&#64;mabrobotics.pl</span></code>, for more information.</p>
-</div>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="aux-encoder-modes">
-<h1>Aux Encoder Modes<a class="headerlink" href="#aux-encoder-modes" title="Link to this heading">#</a></h1>
-<p>With Aux encoder connected, MD can use its data in a few different ways. For most applications,
-where the encoder is used to determine absolute position of the shaft after a gearbox, STARTUP mode
-is the most suitable.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Encoder Mode</p></th>
+<tr class="row-odd"><th class="head"><p>Transition</p></th>
 <th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">STARTUP</span></code></p></td>
-<td><p>Initial position from <b><font color="#FF6900">aux encoder</font></b>, report <b><font color="#008000">main encoder</font></b> values, motion based on <b><font color="#008000">main encoder</font></b>.</p></td>
+<tr class="row-even"><td><p><strong>&lt; 0 &gt;</strong></p></td>
+<td><p>Disable by user</p></td>
+<td><p>CANdleSDK: <code class="docutils literal notranslate"><span class="pre">MD::disable();</span></code><br>MD Protocol: Write (hex) 0x40 to <code class="docutils literal notranslate"><span class="pre">state</span></code> (0x142) register</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MOTION</span></code></p></td>
-<td><p>Initial position from <b><font color="#FF6900">aux encoder</font></b>, report <b><font color="#FF6900">aux encoder</font></b> values, motion based on <b><font color="#FF6900">aux encoder</font></b>.</p></td>
+<tr class="row-odd"><td><p><strong>&lt; 1 &gt;</strong></p></td>
+<td><p>Enable by user</p></td>
+<td><p>CANdleSDK: <code class="docutils literal notranslate"><span class="pre">MD::enable();</span></code><br>MD Protocol: Write (hex) 0x27 to <code class="docutils literal notranslate"><span class="pre">state</span></code> (0x142) register</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">REPORT</span></code></p></td>
-<td><p>Initial position from <b><font color="#008000">aux encoder</font></b>, report <b><font color="#FF6900">aux encoder</font></b> values, motion based on <b><font color="#008000">main encoder</font></b>. Calibration of the <b><font color="#FF6900">aux encoder</font></b> is impossible.</p></td>
+<tr class="row-even"><td><p><strong>&lt; 2 &gt;</strong></p></td>
+<td><p>Non-critical error</p></td>
+<td><p>Position/Velocity limit hit; CAN communication loss</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAIN</span></code> (legacy)</p></td>
-<td><p>Position from <b><font color="#008000">aux encoder</font></b>, is mapped as <b><font color="#008000">main encoder</font></b>, and used for both control and commutation. Note: This is only applicable for drivers with firmware 2.x.x. For v3.0.0+ firmware, the main/aux encoder is set though <code class="docutils literal notranslate"><span class="pre">mainEncoder</span></code> and <code class="docutils literal notranslate"><span class="pre">auxEncoder</span></code> registers.</p></td>
+<tr class="row-odd"><td><p><strong>&lt; 3 &gt;</strong></p></td>
+<td><p>Velocity reached zero</p></td>
+<td><p>-</p></td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The non-axial configuration outputs a nonlinear position values. This means it requires a
-<a class="reference internal" href="config_calibration.html#aux-encoder-calibration"><span class="std std-ref">full calibration</span></a> (your setup should be able to rotate by at least one full rotation), and in case of the report mode it will output nonlinear position and velocity readings that will have to be compensated in the host’s software</p>
-</div>
-<p>Not all modes are recommended for every encoder. The off-axis placed CM or ME-am encoder is inherently
-more noisy and less accurate and thus we recommend using it only in STARTUP mode. Please refer to
-the table below:</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Encoder type</p></th>
-<th class="head"><p>Supported modes</p></th>
-<th class="head"><p>Recommended</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ME_AM_CENTER</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">STARTUP</span></code> / <code class="docutils literal notranslate"><span class="pre">MOTION</span></code> / <code class="docutils literal notranslate"><span class="pre">REPORT</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">STARTUP</span></code> / <code class="docutils literal notranslate"><span class="pre">MOTION</span></code> / <code class="docutils literal notranslate"><span class="pre">REPORT</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ME_AM_OFFAXIS</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">STARTUP</span></code> / <code class="docutils literal notranslate"><span class="pre">MOTION</span></code> / <code class="docutils literal notranslate"><span class="pre">REPORT</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">STARTUP</span></code> / <code class="docutils literal notranslate"><span class="pre">REPORT</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://www.mabrobotics.pl/product-page/rls-aksim-2">RLS_17B_RS422</a></p></td>
-<td><p>ALL</p></td>
-<td><p>ALL</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CM_OFFAXIS</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">STARTUP</span></code></p></td>
-<td><p>Only off-axis configuration is supported.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://www.mabrobotics.pl/product-page/rls-aksim-2">RLS_17B_SPI</a></p></td>
-<td><p>ALL</p></td>
-<td><p>ALL</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">RLS_ORBIS_RS422</span></code></p></td>
-<td><p>ALL</p></td>
-<td><p>ALL</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CE300</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">STARTUP</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">STARTUP</span></code></p></td>
+<tr class="row-even"><td><p><strong>&lt; 4 &gt;</strong></p></td>
+<td><p>All errors cleared</p></td>
+<td><p>CANdleSDK: <code class="docutils literal notranslate"><span class="pre">MD::clearErrors()</span></code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="me-am-mechanical-mounting">
-<h1>ME-am - Mechanical mounting<a class="headerlink" href="#me-am-mechanical-mounting" title="Link to this heading">#</a></h1>
-<p>How to add an encoder to the driver setup:</p>
-<ul class="simple">
-<li><p>make sure the encoder sensor is placed correctly:</p></li>
-</ul>
-<figure class="align-center">
-<img alt="candle" class="no-scaled-link" src="../_images/output_encoder_cross.png" />
-</figure>
-<ul class="simple">
-<li><ul>
-<li><p>in case of axially placed sensors make sure they are placed in center at correct height above
-the magnet (1 mm is usually optimal),</p></li>
-<li><p>in case of non-axial configuration make sure the magnet is close to the ring magnet (&lt;0.5mm)
-and the sensor IC is at least 2mm above or below the ring magnet horizontal plane.</p></li>
-</ul>
-</li>
-<li><p>Connect the MD with the encoder using a picoblade series cable assembly and connect power to the
-MD,</p></li>
-<li><p>Modify the motor config file, or directly access registers, according to your setup and save it to
-the MD,</p></li>
-<li><p>Calibrate the MD using <code class="docutils literal notranslate"><span class="pre">candletool</span> <span class="pre">md</span> <span class="pre">calibration</span></code> command,</p></li>
-<li><p>(if applicable) Calibrate the output encoder using <code class="docutils literal notranslate"><span class="pre">candletool</span> <span class="pre">md</span> <span class="pre">calibration</span> <span class="pre">-e</span> <span class="pre">aux</span></code> command</p></li>
-<li><p>Test the encoders using <code class="docutils literal notranslate"><span class="pre">candletool</span> <span class="pre">test</span> <span class="pre">encoder</span></code> command.</p></li>
-<li><p>Use the <code class="docutils literal notranslate"><span class="pre">candletool</span> <span class="pre">md</span> <span class="pre">info</span></code> command to make sure there are no errors and the test results (min,
-max and stddev errors) are within your expectations.</p></li>
-<li><p>The external encoder is ready to use!</p></li>
-</ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Most of the auxialary encoder require sum-millimeter mounting for conitnous and reliable operation.
-It is recommended to use CNC-machined mounting brackets for attaching the encoder. 3D printed enclosures
-often do not provide sufficient precision and stiffnes (especially after heating up), and can lead to
-more noisy and reliable readings.</p>
+<section id="full-state-machine-model">
+<h2>Full State Machine model<a class="headerlink" href="#full-state-machine-model" title="Link to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section is applicable while operating MD using CANOpen Protocol.</p>
 </div>
+<p>The state machine is defined according to CIA402 specification as follows:</p>
+<figure class="align-center">
+<img alt="../_images/state_machine_CIA402.png" class="no-scaled-link" src="../_images/state_machine_CIA402.png" />
+</figure>
+<p>All the transitions are based on the control word. The current state can be read using the status
+word (0x6041)</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head text-center"><p>Reset Fault (bit 7)</p></th>
+<th class="head text-center"><p>Enable Operation (bit 3)</p></th>
+<th class="head text-center"><p>Quick Stop (bit 2)</p></th>
+<th class="head text-center"><p>Disable Voltage (bit 1)</p></th>
+<th class="head text-center"><p>Switch On (bit 0)</p></th>
+<th class="head text-center"><p>Decimal Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Shutdown</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>X</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>6</p></td>
+</tr>
+<tr class="row-odd"><td><p>Switch On</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>7</p></td>
+</tr>
+<tr class="row-even"><td><p>Switch On and Enable Operation</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>15</p></td>
+</tr>
+<tr class="row-odd"><td><p>Disable Voltage</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>X</p></td>
+<td class="text-center"><p>X</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>X</p></td>
+<td class="text-center"><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>Quick Stop</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>X</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>X</p></td>
+<td class="text-center"><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>Disable Operation</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>7</p></td>
+</tr>
+<tr class="row-even"><td><p>Enable Operation</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>15</p></td>
+</tr>
+<tr class="row-odd"><td><p>Fault Reset</p></td>
+<td class="text-center"><p>0→1</p></td>
+<td class="text-center"><p>X</p></td>
+<td class="text-center"><p>X</p></td>
+<td class="text-center"><p>X</p></td>
+<td class="text-center"><p>X</p></td>
+<td class="text-center"><p>128</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Table 1</strong>: State machine control word description.</p>
+<p>X means “do not care”</p>
+<section id="example">
+<h3>Example:<a class="headerlink" href="#example" title="Link to this heading">#</a></h3>
+<p>To put the drive into operational mode set:</p>
+<ol class="arabic simple">
+<li><p>Control word = 6 (dec) (Shutdown cmd)</p></li>
+<li><p>Control word = 15 (dec) (Switch on and Enable Operation cmds)</p></li>
+</ol>
+<p>The events and respective transitions are gathered in the table below:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Transition</p></th>
+<th class="head"><p>Event</p></th>
+<th class="head"><p>Internal Action</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>0</p></td>
+<td><p>Automatic transition after power up</p></td>
+<td><p>Drive internal initialization</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>1</p></td>
+<td><p>Automatic transition after drives internal initialization</p></td>
+<td><p>Object dictionary is initialized with NVM data</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>2</p></td>
+<td><p>Shutdown command received</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>3</p></td>
+<td><p>Switch on command received</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>4</p></td>
+<td><p>Enable operation command received</p></td>
+<td><p>Current controllers are on, power is applied to the motor</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>5</p></td>
+<td><p>Disable operation command received</p></td>
+<td><p>Current controllers are off, power is not applied to the motor</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>6</p></td>
+<td><p>Shutdown command received</p></td>
+<td><p>Current controllers are turned off</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>7</p></td>
+<td><p>Quick stop command received</p></td>
+<td><p>Current controllers are turned off</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>8</p></td>
+<td><p>Shutdown command received</p></td>
+<td><p>Current controllers are turned off</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>9</p></td>
+<td><p>Disable voltage command received</p></td>
+<td><p>Current controllers are turned off</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>10</p></td>
+<td><p>Disable voltage / Quick stop command received</p></td>
+<td><p>Current controllers are turned off</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>11</p></td>
+<td><p>Quick stop command received</p></td>
+<td><p>Quick stop action is enabled. The drive decelerates and transits to SWITCH ON DISABLED</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>12</p></td>
+<td><p>Automatic transition when quick stop is completed</p></td>
+<td><p>Current controllers are turned off</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>13</p></td>
+<td><p>Fault occurred</p></td>
+<td><p>Current controllers are turned off</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>14</p></td>
+<td><p>Automatic transition to fault state</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>15</p></td>
+<td><p>Fault reset command received</p></td>
+<td><p>Fault is cleared if not critical</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Table 2</strong>: State machine transitions description.</p>
+</section>
+<section id="x6041-statusword">
+<h3>0x6041 – Statusword<a class="headerlink" href="#x6041-statusword" title="Link to this heading">#</a></h3>
+<p>Describes the current state of the internal CiA402 state machine implemented on the drive.</p>
+<details>
+<p><strong><summary>Entry table</summary></strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Index:Sub</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head text-center"><p>Bit Size</p></th>
+<th class="head text-center"><p>Default Data</p></th>
+<th class="head text-center"><p>Min Data</p></th>
+<th class="head text-center"><p>Max Data</p></th>
+<th class="head text-center"><p>Unit</p></th>
+<th class="head text-center"><p>SDO</p></th>
+<th class="head text-center"><p>PDO</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Statusword</p></td>
+<td><p>0x6041:0</p></td>
+<td><p>UNSIGNED16</p></td>
+<td class="text-center"><p>16</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>—</p></td>
+<td class="text-center"><p>—</p></td>
+<td class="text-center"><p>—</p></td>
+<td class="text-center"><p>RO</p></td>
+<td class="text-center"><p>Tx</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Status Word</p></th>
+<th class="head"><p>State Machine State</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>xxxx xxxx x0xx 0000</p></td>
+<td><p>Not Ready to Switch On</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>xxxx xxxx x1xx 0000</p></td>
+<td><p>Switch On Disabled</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>xxxx xxxx x01x 0001</p></td>
+<td><p>Ready to Switch On</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>xxxx xxxx x01x 0011</p></td>
+<td><p>Switched On</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>xxxx xxxx x01x 0111</p></td>
+<td><p>Operation Enabled</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>xxxx xxxx x00x 0111</p></td>
+<td><p>Quick Stop Active</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>xxxx xxxx x0xx 1111</p></td>
+<td><p>Fault Reaction Active</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>xxxx xxxx x0xx 1000</p></td>
+<td><p>Quick Stop Active</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Table 3</strong>: State machine status word description.</p>
+<p>Bit 10 of the statusword indicates the current target has been reached (1) or not (0). This bit is motion mode - dependent, meaning for example in position mode it indicates the position has been reached (within a <code class="docutils literal notranslate"><span class="pre">0x6067</span></code> Position Window margin), and in velocity mode that a velocity target has been reached (within <code class="docutils literal notranslate"><span class="pre">0x606D</span></code> Velocity Window).</p>
+<p>Bit 11 of the <strong>Statusword</strong> indicates whether any of the internal limits was active during current power up - for more information on which limit is active, check the <code class="docutils literal notranslate"><span class="pre">0x2003:7</span></code> Motion Status.</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -809,20 +858,20 @@ more noisy and reliable readings.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="MD80HV.html"
+       href="safety.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">MD80 60V</p>
+        <p class="prev-next-title">Safety</p>
       </div>
     </a>
     <a class="right-next"
-       href="brakes.html"
+       href="motion.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Brake System</p>
+        <p class="prev-next-title">Motion modes</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -842,23 +891,13 @@ more noisy and reliable readings.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Encoders</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-encoders">Supported Encoders</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#onboard-encoder">Onboard Encoder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#md-protocol-model">MD Protocol model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-state-machine-model">Full State Machine model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#x6041-statusword">0x6041 – Statusword</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#auxiliary-aux-encoders">Auxiliary (Aux) Encoders</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#me-am">ME-am</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cm-encoder">CM encoder</a></li>
 </ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rls-precision-encoders">RLS Precision Encoders</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#aux-encoder-modes">Aux Encoder Modes</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#me-am-mechanical-mounting">ME-am - Mechanical mounting</a></li>
-</ul>
-
   </nav></div>
 
 </div></div>
