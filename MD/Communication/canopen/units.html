@@ -576,6 +576,13 @@ revolutions before the counter wraps.</p>
 <p>All of these are <strong>output shaft</strong> quantities. The gear ratio in 0x6091 is applied by the drive, so
 you never convert for the gearbox yourself.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The drive stores position, velocity and acceleration internally as IEEE-754 single precision
+floats, not integers. A value written and then read back may differ slightly from the original,
+as single precision cannot represent every INT32 value exactly. The difference grows with the
+magnitude of the value, so do not compare read-back values for exact equality.</p>
+</div>
 </section>
 <section id="torque-and-current">
 <h2>Torque and current<a class="headerlink" href="#torque-and-current" title="Link to this heading">#</a></h2>
