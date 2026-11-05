@@ -193,6 +193,7 @@
 
 
 
+
 <li class="toctree-l2"><a class="reference internal" href="../../brakes.html">Brakes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../torque_sensor.html">External Torque Sensor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../measurements.html">Measurements</a></li>
@@ -2303,7 +2304,7 @@ the enforced range is rejected with SDO abort code 0x06090030.</p>
 <td><p>Highest sub-index supported</p></td>
 <td><p>UINT8</p></td>
 <td><p>ro</p></td>
-<td><p>0x06</p></td>
+<td><p>0x07</p></td>
 <td><p>no</p></td>
 <td><p></p></td>
 </tr>
@@ -2354,6 +2355,14 @@ the enforced range is rejected with SDO abort code 0x06090030.</p>
 <td><p>0</p></td>
 <td><p>yes</p></td>
 <td><p>micro-revolutions per second</p></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td><p>Dual Encoder Absolute Position</p></td>
+<td><p>INT32</p></td>
+<td><p>ro</p></td>
+<td><p>0</p></td>
+<td><p>yes</p></td>
+<td><p>micro-revolutions; valid only when the aux encoder mode is DUAL, see <a class="reference internal" href="../../encoders.html#dual-encoders"><span class="std std-ref">Drives with DUAL encoders</span></a>. Not affected by zeroing or offsets</p></td>
 </tr>
 </tbody>
 </table>
