@@ -635,8 +635,7 @@ motion.</p></li>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Inhibit time, sub-index 3, is accepted and read back but is not enforced. SYNC start value,
-sub-index 6, is declared in the EDS for transmit PDOs but is not implemented, and accessing it
-aborts with 0x06090011. Sub-index 0 of every PDO communication parameter reports 5.</p>
+sub-index 6, is not implemented, and accessing it aborts with 0x06090011. Sub-index 0 of every PDO communication parameter reports 5.</p>
 <p>The event timer field of a receive PDO is stored but has no effect. To make the drive react to a
 master that stops talking, use the <a class="reference internal" href="nmt.html#canopen-nmt"><span class="std std-ref">heartbeat consumer</span></a> instead.</p>
 </div>
